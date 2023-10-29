@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation'
 import { twMerge } from 'tailwind-merge';
 import {RxCaretLeft, RxCaretRight} from 'react-icons/rx'
 
+import Button from '@/components/Button'
+
 interface HeaderProps {
   children: React.ReactNode;
   className?: string;
@@ -69,8 +71,30 @@ const Header: FC<HeaderProps> = ({
               <RxCaretRight className="text-white" size={35} />
             </button>
           </div>
-          
+          <div>
+            <Button
+              onClick={() => {}}
+              className='
+                bg-transparent
+                text-neutral-300
+                font-medium
+              '
+            >
+              Sign up
+            </Button>
+            <Button
+              onClick={() => {}}
+              className='
+                bg-white
+                px-6
+                py-2
+              '
+            >
+              Sign up
+            </Button>
+          </div>
         </div>
+        {children}
     </div>
   )
 };
