@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import Modal from "./Modal"
 import { useSessionContext, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { Auth } from '@supabase/auth-ui-react'
@@ -16,6 +16,13 @@ const AuthModal: FC<AuthModalProps> = () => {
   const router = useRouter();
   const { session } = useSessionContext(); 
   const { onClose, isOpen } = useAuthModal();
+
+  useEffect(() => {
+    if (session) {
+      router.refresh();
+      onClose;
+    }
+  }, [onClose, router, session])
 
   const onChange = (open: boolean) => {
     if (!open) {
