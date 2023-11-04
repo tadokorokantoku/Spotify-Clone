@@ -29,9 +29,9 @@ const Modal: FC<ModalProps> = ({
             bg-neutral-900/90
             backdrop-blur-sm
             fixed
-            insert-0
+            inset-0
           '
-        />
+        />      
         <Dialog.Content className='
           fixed
           drop-shadow-md
@@ -49,7 +49,7 @@ const Modal: FC<ModalProps> = ({
           bg-neutral-800
           p-[25px]
           focus:outline-none
-        ' >
+        ' >        
           <Dialog.Title className='
             text-xl
             text-center

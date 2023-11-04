@@ -6,6 +6,7 @@ import { twMerge } from 'tailwind-merge';
 import {RxCaretLeft, RxCaretRight} from 'react-icons/rx'
 
 import Button from '@/components/Button'
+import useAuthModal from '@/hooks/useAuthModal';
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -16,6 +17,7 @@ const Header: FC<HeaderProps> = ({
   children,
   className
 }) => {
+  const authModal = useAuthModal();
   const router = useRouter();
 
   const handleLogout = () => {
@@ -70,10 +72,10 @@ const Header: FC<HeaderProps> = ({
             '>
               <RxCaretRight className="text-white" size={35} />
             </button>
-          </div>
+          </div> 
           <div>
             <Button
-              onClick={() => {}}
+              onClick={authModal.onOpen}
               className='
                 bg-transparent
                 text-neutral-300
@@ -83,7 +85,7 @@ const Header: FC<HeaderProps> = ({
               Sign up
             </Button>
             <Button
-              onClick={() => {}}
+              onClick={authModal.onOpen}
               className='
                 bg-white
                 px-6
