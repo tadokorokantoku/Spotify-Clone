@@ -40,7 +40,8 @@ const AuthModal: FC<AuthModalProps> = () => {
       <Auth
         supabaseClient={supabaseClient}
         magicLink
-        providers={["google", "apple", "spotify", "twitter"]}
+        theme="dark"
+        providers={["google", "apple", "spotify"]}
         appearance={{
           theme: ThemeSupa,
           variables: {
