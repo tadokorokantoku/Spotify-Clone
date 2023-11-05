@@ -49,6 +49,7 @@ const Modal: FC<ModalProps> = ({
           bg-neutral-800
           p-[25px]
           focus:outline-none
+          max-w-md
         ' >        
           <Dialog.Title className='
             text-xl
