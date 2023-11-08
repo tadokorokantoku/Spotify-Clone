@@ -10,6 +10,11 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    domains: [
+      "nrzpasyvurbmkpdsacht.supabase.co"
+    ]
+  }
 }
 
 module.exports = nextConfig
