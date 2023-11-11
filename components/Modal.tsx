@@ -5,6 +5,7 @@ import { IoMdClose } from 'react-icons/io'
 interface ModalProps {
   isOpen: boolean;
   onChange: (open: boolean) => void;
+  onClose?: () => void;
   title: string;
   description: string;
   children: React.ReactNode;
@@ -13,6 +14,7 @@ interface ModalProps {
 const Modal: FC<ModalProps> = ({
   isOpen,
   onChange,
+  onClose,
   title,
   description,
   children,
@@ -71,7 +73,9 @@ const Modal: FC<ModalProps> = ({
             {children}
           </div>
           <Dialog.Close>
-            <button className='
+            <button 
+            onClick={onClose}
+            className='
               text-neutral-400
               hover:text-white
               absolute

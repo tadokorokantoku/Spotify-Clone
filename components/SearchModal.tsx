@@ -3,7 +3,7 @@ import Modal from './Modal';
 
 import { searchSongs } from '@/hooks/useSearchSongs';
 import Input from '@/components/Input';
-import { type } from 'os';
+import ListItem from '@/components/ListItem'
 
 type artist = {
   name: string,
@@ -12,15 +12,32 @@ type artist = {
   uri: string,
 }
 
+type album = {
+  artists: artist[],
+  name: string,
+  id: string,
+  type: string,
+  uri: string,
+  images: image[];
+  release_date: string,
+  total_tracks: number,
+}
+
+type image = {
+  height: number,
+  url: string,
+  width: number,
+}
+
 interface fetchedSongs {
   id: number;
   name: string;
   artists: artist[];
-  album: string;
+  album: album;
   year: number;
   genre: string;
   duration: number;
-  image: string;
+  
   file: string;
 
 }
@@ -29,13 +46,18 @@ interface SearchModalProps {};
 
 const SearchModal: FC<SearchModalProps> = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [query, setQuery] = useState('');
   const [songs, setSongs] = useState<fetchedSongs[]>([]);
+  const [isOpened, setIsOpened] = useState(true);
+
+
   console.log(songs.length);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
+    setQuery(value);
 
-    const query = `${value}`
+    const query = value
     searchSongs(query).then((songs) => {
       console.log(songs);
       setSongs(songs);
@@ -48,8 +70,9 @@ const SearchModal: FC<SearchModalProps> = () => {
     <Modal
       title='Search'
       description='' 
-      isOpen={true}
+      isOpen={isOpened}
       onChange={() => {}}
+      onClose={() => setIsOpened(false)}
     >
       <div>
         <div className="pb-1">
@@ -58,14 +81,19 @@ const SearchModal: FC<SearchModalProps> = () => {
         <Input
           id="query"
           type="text"
+          value={query}
           disabled={isLoading}
           onChange={onChange}
         />
       </div>
       <div>
-        {songs.length !== 0 && songs[0].artists.map((artist) => (
-          <div key={artist.name}>
-            <p>{artist.name}</p>
+        {songs.length !== 0 && query.length !== 0 && songs.map((song) => (
+          <div key={song.id} className='mb-5 mt-3'>
+            <ListItem
+            image={song.album.images[0].url} 
+            name={song.name}
+            href={song.album.uri}
+          />
           </div>
         )
         )}

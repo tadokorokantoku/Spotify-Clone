@@ -12,8 +12,9 @@ const nextConfig = {
   },
   images: {
     domains: [
-      "nrzpasyvurbmkpdsacht.supabase.co"
-    ]
+      "nrzpasyvurbmkpdsacht.supabase.co",
+      "i.scdn.co"
+    ],
   }
 }
 
