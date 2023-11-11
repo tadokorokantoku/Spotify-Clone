@@ -2,7 +2,7 @@
 
 import { FC, useState } from 'react';
 import uniqid from 'uniqid';
-import Modal from './Modal';
+import Modal from '../../components/Modal';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import useUploadModal from '@/hooks/useUploadModal';
 import Input from '@/components/Input';

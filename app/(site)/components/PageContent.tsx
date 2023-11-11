@@ -7,7 +7,7 @@ import SongItem from '@/components/SongItem';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 import useSearchModal from '@/hooks/useSearchModal';
-import SearchItem from '@/components/SearchItem';
+import SearchItem from '@/domain/SearchModal/SearchItem';
 
 
 interface PageContentProps {

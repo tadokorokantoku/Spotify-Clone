@@ -1,9 +1,9 @@
 import { ChangeEvent, FC, useState } from 'react';
-import Modal from './Modal';
+import Modal from '../../components/Modal';
 
 import { searchSongs } from '@/hooks/useSearchSongs';
 import Input from '@/components/Input';
-import SearchItem from '@/components/SearchItem';
+import SearchItem from '@/domain/SearchModal/SearchItem';
 import toast from 'react-hot-toast';
 import useSearchModal from '@/hooks/useSearchModal';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
