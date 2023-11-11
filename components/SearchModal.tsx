@@ -4,6 +4,10 @@ import Modal from './Modal';
 import { searchSongs } from '@/hooks/useSearchSongs';
 import Input from '@/components/Input';
 import SearchItem from '@/components/SearchItem';
+import toast from 'react-hot-toast';
+import useSearchModal from '@/hooks/useSearchModal';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useUser } from '@/hooks/useUser';
 
 type artist = {
   name: string,
@@ -29,7 +33,7 @@ type image = {
   width: number,
 }
 
-interface fetchedSongs {
+interface fetchedSong {
   id: number;
   name: string;
   artists: artist[];
@@ -37,7 +41,7 @@ interface fetchedSongs {
   year: number;
   genre: string;
   duration: number;
-  
+  preview_url: string;
   file: string;
 
 }
@@ -45,10 +49,13 @@ interface fetchedSongs {
 interface SearchModalProps {};
 
 const SearchModal: FC<SearchModalProps> = () => {
+  const searchModal = useSearchModal();
+  const supabaseClient = useSupabaseClient();
+  const { user } = useUser();
+
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState('');
-  const [songs, setSongs] = useState<fetchedSongs[]>([]);
-  const [isOpened, setIsOpened] = useState(true);
+  const [songs, setSongs] = useState<fetchedSong[]>([]);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -57,18 +64,58 @@ const SearchModal: FC<SearchModalProps> = () => {
     const query = value
     searchSongs(query).then((songs) => {
       setSongs(songs);
+      console.log(songs);
     }).catch((e) => {
       console.log(e);
     });
+  }
+
+  const onClose = () => {
+    searchModal.onClose();
+    setQuery('');
+    setSongs([]);
+  }
+
+  const onClickItem = async (data: fetchedSong) => {
+    console.log('start', data, user);
+    if (!user) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    const {
+      error: supabaseError
+    } = await supabaseClient
+    .from('songs')
+    .insert({
+      user_id: user.id,
+      title: data.name, 
+      author: data.artists[0].name,
+      image_path: data.album.images[1].url,
+      song_path: data.preview_url,
+    });
+
+    if (supabaseError) {
+      setIsLoading(false);
+      return toast.error(supabaseError.message)
+    } 
+
+    setIsLoading(false);
+    toast.success('Song created!')
+  }
+
+  if (!searchModal.isOpen) {
+    return null;
   }
 
   return (
     <Modal
       title='Search'
       description='' 
-      isOpen={isOpened}
+      isOpen={searchModal.isOpen}
       onChange={() => {}}
-      onClose={() => setIsOpened(false)}
+      onClose={onClose}
     >
       <div>
         <div className="pb-1">
@@ -87,10 +134,10 @@ const SearchModal: FC<SearchModalProps> = () => {
         {(songs.length !== 0 && query.length !== 0) ? songs.map((song) => (
           <div key={song.id} className='mb-5 mt-5'>
             <SearchItem
-            image={song.album.images[0].url} 
+            image={song.album.images[1].url} 
             name={song.name}
             author={song.artists[0].name}
-            href={song.album.uri}
+            onClick={() => onClickItem(song)}
           />
           </div>
         )
