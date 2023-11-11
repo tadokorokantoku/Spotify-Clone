@@ -5,7 +5,6 @@ import { FC } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 import useSearchModal from '@/hooks/useSearchModal';
-import SearchItem from '@/domain/SearchModal/SearchItem';
 import Best10Songs from '@/domain/Best10Songs/Best10Songs';
 
 
@@ -42,10 +41,14 @@ const PageContent: FC<PageContentProps> = ({
                 transition
               '
               onClick={searchModal.onOpen}
+              disabled={songs.length >= 10}
             >
               <AiOutlinePlus className='text-white' />
             </button>
           </div>
+          <p className='text-center p-1'>
+            {songs.length >= 10 ? 'これ以上登録することができません' : `あと${10 - songs.length}曲登録することができます`}
+          </p>
         </div>
       </div>
       <div className='mt-10'>
