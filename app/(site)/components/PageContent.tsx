@@ -2,12 +2,11 @@
 
 import { Song } from '@/types';
 import { FC } from 'react';
-
-import SongItem from '@/components/SongItem';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 import useSearchModal from '@/hooks/useSearchModal';
 import SearchItem from '@/domain/SearchModal/SearchItem';
+import Best10Songs from '@/domain/Best10Songs/Best10Songs';
 
 
 interface PageContentProps {
@@ -49,29 +48,8 @@ const PageContent: FC<PageContentProps> = ({
           </div>
         </div>
       </div>
-        <div>
-          <div
-          className='
-            grid
-            grid-cols-2
-            sm:grid-cols-3
-            md:grid-cols-3
-            lg:grid-cols-4
-            xl:grid-cols-5
-            2xl:grid-cols-8gap-4
-            mt-4
-          '
-        >
-          {songs.map((item) => (
-            <SearchItem
-              key={item.id}
-              onClick={() => {}}
-              name={item.title}
-              author={item.author}
-              image={item.image_path}
-            />
-          ))}
-        </div>
+      <div className='mt-10'>
+        <Best10Songs songs={songs} />
       </div>
     </div>
   );

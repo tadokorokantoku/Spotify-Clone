@@ -7,18 +7,21 @@ import { FC } from 'react';
 import PlayButton from './PlayButton';
 
 interface SongItemProps {
-  data: Song;
-  onClick: (id: string) => void;
+  title: string;
+  onClick: () => void;
+  author?: string;
+  imagePath?: string;
 };
 
 const SongItem: FC<SongItemProps> = ({
-  data,
+  title,
+  author,
+  imagePath,
   onClick 
 }) => {
-  const imagePath = useLoadImage(data);
   return (
     <div
-      onClick={() => onClick(data.id)}
+      onClick={onClick}
       className='
         relative
         group
@@ -54,7 +57,7 @@ const SongItem: FC<SongItemProps> = ({
       </div>
       <div className="flex flex-col items-start w-full pt-4 gap-y-1" >
         <p className='font-semibold truncate w-full' >
-          {data.title}
+          {title}
         </p>
         <p 
           className='
@@ -64,7 +67,7 @@ const SongItem: FC<SongItemProps> = ({
             w-full
             truncate
         '>
-          {data.author}
+          {author}
         </p>
         <div className='
           absolute

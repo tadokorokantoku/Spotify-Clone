@@ -6,21 +6,19 @@ import { useRouter } from 'next/navigation';
 import { FaPlay} from 'react-icons/fa'
 
 interface ListItemProps {
-  image: string;
-  name: string;
-  href: string;
+  title: string;
+  imagePath: string;
+  onClick: () => void;
+  author?: string;
 };
 
 const ListItem: FC<ListItemProps> = ({
-  image,
-  name,
-  href,
+  title,
+  imagePath,
+  onClick,
+  author
 }) => {
   const router = useRouter();
-
-  const onClick = () => {
-    router.push(href);
-  }
 
   return (
     <button
@@ -37,6 +35,7 @@ const ListItem: FC<ListItemProps> = ({
         hover:bg-neutral-100/20
         transition
         pr-4
+        max-w-[500px]
       '
     >
       <div className="
@@ -48,13 +47,22 @@ const ListItem: FC<ListItemProps> = ({
         <Image
           className='object-cover'
           fill
-          src={image}
+          src={imagePath}
           alt="image"
         />
       </div>
-      <p className='font-medium truncate py-5'>
-        {name}
-      </p>
+      <div className="flex flex-col items-start gap-y-1" >
+        <p className='font-semibold truncate' >
+          {title}
+        </p>
+        <p 
+          className='
+            text-neutral-400
+            text-sm
+        '>
+          {author}
+        </p>
+      </div>
       <div
         className='
           absolute
