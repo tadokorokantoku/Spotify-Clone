@@ -63,10 +63,12 @@ const PageContent: FC<PageContentProps> = ({
           '
         >
           {songs.map((item) => (
-            <SongItem
+            <SearchItem
               key={item.id}
               onClick={() => {}}
-              data={item}
+              name={item.title}
+              author={item.author}
+              image={item.image_path}
             />
           ))}
         </div>
