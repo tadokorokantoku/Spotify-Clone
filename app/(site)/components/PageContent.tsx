@@ -16,6 +16,7 @@ const PageContent: FC<PageContentProps> = ({
   songs,
 }) => {
   const searchModal = useSearchModal();
+  const canRegister = songs.length < 10 
 
   if (songs.length === 0)  {
     return (
@@ -31,24 +32,28 @@ const PageContent: FC<PageContentProps> = ({
           <div className='text-white text-2xl font-semibold'>
             Your 10 songs
           </div>
-          <div>
-            <button
-              className='
-                bg-blue-500
-                rounded-full
-                p-2
-                hover:bg-blue-600
-                transition
-              '
-              onClick={searchModal.onOpen}
-              disabled={songs.length >= 10}
-            >
-              <AiOutlinePlus className='text-white' />
-            </button>
-          </div>
-          <p className='text-center p-1'>
-            {songs.length >= 10 ? 'これ以上登録することができません' : `あと${10 - songs.length}曲登録することができます`}
-          </p>
+          {canRegister && (
+            <>
+              <div>
+                <button
+                  className='
+                    bg-blue-500
+                    rounded-full
+                    p-2
+                    hover:bg-blue-600
+                    transition
+                  '
+                  onClick={searchModal.onOpen}
+                  disabled={songs.length >= 10}
+                >
+                  <AiOutlinePlus className='text-white' />
+                </button>
+              </div>
+              <p className='text-center p-1'>
+                { canRegister && `あと${10 - songs.length}曲登録することができます`}
+              </p>
+            </>
+          )}
         </div>
       </div>
       <div className='mt-10'>
