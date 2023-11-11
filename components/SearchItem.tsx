@@ -1,0 +1,74 @@
+"use client"
+
+import React, { FC } from 'react';
+import Image from 'next/image'
+import { useRouter } from 'next/navigation';
+import { FaPlay} from 'react-icons/fa'
+
+interface SearchItemProps {
+  image: string;
+  name: string;
+  author: string
+  href: string;
+};
+
+const SearchItem: FC<SearchItemProps> = ({
+  image,
+  name,
+  author,
+  href,
+}) => {
+  const router = useRouter();
+
+  const onClick = () => {
+    router.push(href);
+  }
+
+  return (
+    <button
+      onClick={onClick}
+      className='
+        relative
+        group
+        flex
+        items-center
+        rounded-md
+        overflow-hidden
+        gap-x-4
+        bg-neutral-100/10
+        hover:bg-neutral-100/20
+        transition
+        pr-4
+        w-full
+      '
+    >
+      <div className="
+        relative
+        min-h-[64px]
+        min-w-[64px]
+      "
+      >
+        <Image
+          className='object-cover'
+          fill
+          src={image}
+          alt="image"
+        />
+      </div>
+      <div className="flex flex-col items-start gap-y-1" >
+        <p className='font-semibold truncate' >
+          {name}
+        </p>
+        <p 
+          className='
+            text-neutral-400
+            text-sm
+        '>
+          {author}
+        </p>
+      </div>
+    </button>
+  );
+};
+
+export default SearchItem;

@@ -3,7 +3,7 @@ import Modal from './Modal';
 
 import { searchSongs } from '@/hooks/useSearchSongs';
 import Input from '@/components/Input';
-import ListItem from '@/components/ListItem'
+import SearchItem from '@/components/SearchItem';
 
 type artist = {
   name: string,
@@ -50,16 +50,12 @@ const SearchModal: FC<SearchModalProps> = () => {
   const [songs, setSongs] = useState<fetchedSongs[]>([]);
   const [isOpened, setIsOpened] = useState(true);
 
-
-  console.log(songs.length);
-
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setQuery(value);
 
     const query = value
     searchSongs(query).then((songs) => {
-      console.log(songs);
       setSongs(songs);
     }).catch((e) => {
       console.log(e);
@@ -84,18 +80,24 @@ const SearchModal: FC<SearchModalProps> = () => {
           value={query}
           disabled={isLoading}
           onChange={onChange}
+          placeholder="Song title"
         />
       </div>
-      <div>
-        {songs.length !== 0 && query.length !== 0 && songs.map((song) => (
-          <div key={song.id} className='mb-5 mt-3'>
-            <ListItem
+      <div className='h-80 overflow-y-auto mt-5'>
+        {(songs.length !== 0 && query.length !== 0) ? songs.map((song) => (
+          <div key={song.id} className='mb-5 mt-5'>
+            <SearchItem
             image={song.album.images[0].url} 
             name={song.name}
+            author={song.artists[0].name}
             href={song.album.uri}
           />
           </div>
         )
+        ) : (
+          <div className='text-neutral-400 h-40'>
+            No songs available.
+          </div>
         )}
       </div>
     </Modal>
