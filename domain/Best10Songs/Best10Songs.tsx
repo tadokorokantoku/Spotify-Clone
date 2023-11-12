@@ -19,7 +19,7 @@ const Best10Songs: FC<Best10SongsProps> = ({ songs }) => {
         gap-y-4
       '
       >
-        {songs.map((item) => (
+        {songs.length !== 0 ? (songs.map((item) => (
           <ListItem
             key={item.id}
             onClick={() => searchModal.onExchange(item.id)}
@@ -27,7 +27,11 @@ const Best10Songs: FC<Best10SongsProps> = ({ songs }) => {
             author={item.author}
             imagePath={item.image_path}
           />
-        ))}
+        ))) : (
+          <div className='text-neutral-400 h-40'>
+            No songs available.
+          </div>
+        )}
       </div>
     </div>
   );
