@@ -1,13 +1,14 @@
 import { FC } from 'react';
 import { Song } from '@/types';
-import SearchItem from '@/domain/SearchModal/SearchItem';
 import ListItem from '@/components/ListItem';
+import useSearchModal from '@/hooks/useSearchModal';
 
 interface Best10SongsProps {
   songs: Song[];
 };
 
 const Best10Songs: FC<Best10SongsProps> = ({ songs }) => {
+  const searchModal = useSearchModal();
   return (
     <div>
       <div
@@ -21,7 +22,7 @@ const Best10Songs: FC<Best10SongsProps> = ({ songs }) => {
         {songs.map((item) => (
           <ListItem
             key={item.id}
-            onClick={() => {}}
+            onClick={() => searchModal.onExchange(item.id)}
             title={item.title}
             author={item.author}
             imagePath={item.image_path}

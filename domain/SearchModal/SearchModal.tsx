@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useState } from 'react';
 import Modal from '../../components/Modal';
 
-import { searchSongs } from '@/hooks/useSearchSongs';
+import { searchSongs } from '@/actions/searchSongs';
 import Input from '@/components/Input';
 import SearchItem from '@/domain/SearchModal/SearchItem';
 import toast from 'react-hot-toast';
@@ -64,7 +64,6 @@ const SearchModal: FC<SearchModalProps> = () => {
     const query = value
     searchSongs(query).then((songs) => {
       setSongs(songs);
-      console.log(songs);
     }).catch((e) => {
       console.log(e);
     });
@@ -76,13 +75,11 @@ const SearchModal: FC<SearchModalProps> = () => {
     setSongs([]);
   }
 
-  const onClickItem = async (data: fetchedSong) => {
-    console.log('start', data, user);
+  const addSong = async (data: fetchedSong) => {
     if (!user) {
       return;
     }
 
-    setIsLoading(true);
 
     const {
       error: supabaseError
@@ -94,15 +91,47 @@ const SearchModal: FC<SearchModalProps> = () => {
       author: data.artists[0].name,
       image_path: data.album.images[1].url,
       song_path: data.preview_url,
+      update_at: new Date(),
     });
 
     if (supabaseError) {
       setIsLoading(false);
       return toast.error(supabaseError.message)
     } 
+  }
 
-    setIsLoading(false);
-    toast.success('Song created!')
+  const deleteSong = async () => {
+    if (searchModal.exchangeTargetId === null) {
+      return;
+    }
+
+    const { error: supabaseError } = await supabaseClient
+      .from('songs')
+      .update({ is_deleted: true, deleted_date: new Date(), update_at: new Date() })
+      .eq('id', searchModal.exchangeTargetId);
+
+    if (supabaseError) {
+      setIsLoading(false);
+      return toast.error(supabaseError.message)
+    } 
+  }
+
+  const onClickItem = async (data: fetchedSong) => {
+    try {
+      setIsLoading(true);
+      if (searchModal.isExchanging) {
+        await deleteSong();
+      }
+  
+      await addSong(data);
+      setIsLoading(false);
+      toast.success(searchModal.isExchanging ? 'Song exchanged successfully!': 'Song added successfully!');
+    } catch (e) {
+      console.log(e);
+      toast.error('Something went wrong!');
+    }
+
+    
   }
 
   if (!searchModal.isOpen) {
@@ -111,7 +140,7 @@ const SearchModal: FC<SearchModalProps> = () => {
 
   return (
     <Modal
-      title='Search'
+      title={searchModal.isExchanging ? 'Exchange song' : 'Add song'}
       description='' 
       isOpen={searchModal.isOpen}
       onChange={() => {}}
