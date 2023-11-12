@@ -14,7 +14,7 @@ const Library = () => {
 
   const onClick = () => {
     if (!user) {
-      return authModal.onOpen();
+      return authModal.onSingIn();
     }
 
     // TODO: something

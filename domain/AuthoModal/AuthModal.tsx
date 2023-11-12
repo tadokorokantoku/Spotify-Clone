@@ -24,6 +24,22 @@ const AuthModal: FC<AuthModalProps> = () => {
     }
   }, [onClose, router, session])
 
+  useEffect(() => {
+    const { data: authListener } = supabaseClient.auth.onAuthStateChange(
+      async (event, session) => {
+        if (event === 'SIGNED_IN' || event === 'SIGNED_OUT') {
+          // signInやsignUpが正常に完了した時に実行したい関数をここに書く
+          onClose();
+        }
+      }
+    );
+
+    // Cleanup subscription on unmount
+    // return () => {
+    //   supabaseClient.removeChannel(authListener);
+    // };
+  }, [onClose, supabaseClient.auth]);
+
   const onChange = (open: boolean) => {
     if (!open) {
       onClose();
