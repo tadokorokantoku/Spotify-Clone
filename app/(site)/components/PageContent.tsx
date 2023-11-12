@@ -17,7 +17,6 @@ const PageContent: FC<PageContentProps> = ({
   songs,
 }) => {
   const user = useUser();
-  console.log('user', user)
   const searchModal = useSearchModal();
   const canRegister = songs.length < 10 
 

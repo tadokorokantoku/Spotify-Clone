@@ -15,7 +15,6 @@ const getAccessToken = async (): Promise<string> => {
   if (accessToken && tokenExpirationDate && new Date() < tokenExpirationDate) {
     return accessToken;
   }
-  console.log('Getting new access token...');
 
   const { data } = await axios.post<TokenResponse>(
     'https://accounts.spotify.com/api/token',
@@ -30,7 +29,6 @@ const getAccessToken = async (): Promise<string> => {
       },
     }
   );
-  console.log('Got new access token!', data);
 
   accessToken = data.access_token;
   tokenExpirationDate = new Date(new Date().getTime() + data.expires_in * 1000);
