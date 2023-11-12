@@ -107,7 +107,7 @@ const Header: FC<HeaderProps> = ({
             <>
               <div>
                 <Button
-                  onClick={authModal.onOpen}
+                  onClick={authModal.onSingUp}
                   className='
                     bg-transparent
                     text-neutral-300
@@ -117,7 +117,7 @@ const Header: FC<HeaderProps> = ({
                   Sign up
                 </Button>
                 <Button
-                  onClick={authModal.onOpen}
+                  onClick={authModal.onSingIn}
                   className='
                     bg-white
                     px-6

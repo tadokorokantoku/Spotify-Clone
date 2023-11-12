@@ -15,7 +15,7 @@ const AuthModal: FC<AuthModalProps> = () => {
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
   const { session } = useSessionContext(); 
-  const { onClose, isOpen } = useAuthModal();
+  const { onClose, isOpen, isSignUp } = useAuthModal();
 
   useEffect(() => {
     if (session) {
@@ -32,16 +32,16 @@ const AuthModal: FC<AuthModalProps> = () => {
 
   return (
     <Modal
-      title='Welcome back!'
-      description='Login to your account' 
+      title={isSignUp ? 'Please create your account!' : 'Welcome back!'}
+      description={isSignUp ? '' : 'Login to your account'} 
       isOpen={isOpen}
       onChange={onChange}
     >
       <Auth
         supabaseClient={supabaseClient}
-        magicLink
         theme="dark"
-        providers={["google", "apple", "spotify"]}
+        view={isSignUp ? 'sign_up' : 'sign_in'}
+        providers={[]}
         appearance={{
           theme: ThemeSupa,
           variables: {
