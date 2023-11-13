@@ -17,8 +17,9 @@ const PageContent: FC<PageContentProps> = ({
   songs,
 }) => {
   const user = useUser();
+  const mySongs = songs.filter((song) => song.user_id === user.user?.id);
   const searchModal = useSearchModal();
-  const canRegister = songs.length < 10 
+  const canRegister = mySongs.length < 10 
 
   return (
     <div className='mt-2 mb-7 px-6'>
@@ -41,13 +42,13 @@ const PageContent: FC<PageContentProps> = ({
                         transition
                       '
                       onClick={searchModal.onOpen}
-                      disabled={songs.length >= 10}
+                      disabled={mySongs.length >= 10}
                     >
                       <AiOutlinePlus className='text-white' />
                     </button>
                   </div>
                   <p className='text-center p-1'>
-                    { canRegister && `あと${10 - songs.length}曲登録することができます`}
+                    { canRegister && `あと${10 - mySongs.length}曲登録することができます`}
                   </p>
                 </>
               )}
@@ -55,7 +56,7 @@ const PageContent: FC<PageContentProps> = ({
           </div>
       
           <div className='mt-10'>
-            <Best10Songs songs={songs} />
+            <Best10Songs songs={mySongs} />
           </div>
         </>
       )}

@@ -7,9 +7,11 @@ import { BiSearch } from 'react-icons/bi'
 
 import Box from '../../components/Box'
 import SidebarItem from './SidebarItem'
-import Library from '../../components/Library'
+import Library from '../Library/Library'
+import { UserDetails } from '@/types'
 
 interface SidebarProps {
+  users: UserDetails[];
   children: React.ReactNode
 }
 

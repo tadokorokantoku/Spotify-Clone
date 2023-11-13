@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: 'Listen to Music!',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
