@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState } from 'react';
+import { FC, use, useEffect, useState } from 'react';
 import uniqid from 'uniqid';
 import Modal from '../../components/Modal';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
@@ -15,12 +15,19 @@ import { useRouter } from 'next/navigation';
 
 interface UploadModalProps {};
 
-const UploadModal: FC<UploadModalProps> = () => {
+const UserRegisterModal: FC<UploadModalProps> = () => {
   const [isLoading, setIsLoading] = useState(false)
   const uploadModal = useUploadModal();
-  const { user } = useUser();
+  const { user, userDetails } = useUser();
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
+
+  useEffect(() => {
+    console.log('userDetails', userDetails)
+    if (!userDetails?.full_name) {
+      uploadModal.onOpen();
+    }
+  }, [userDetails])
 
   const {
     register,
@@ -28,9 +35,7 @@ const UploadModal: FC<UploadModalProps> = () => {
     reset,
   } = useForm<FieldValues>({
     defaultValues: {
-      author: '',
-      title: '',
-      song: null,
+      username: '',
       image: null,
     }
   })
@@ -40,31 +45,14 @@ const UploadModal: FC<UploadModalProps> = () => {
       setIsLoading(true);
 
       const imageFile = values.image?.[0];
-      const songFile = values.song?.[0];
+      const username = values.username;
 
-      if (!imageFile || !songFile || !user) {
+      if (!imageFile || !username || !user) {
         toast.error('Missing fields')
         return;
       }
 
       const uniqueID = uniqid();
-
-      // upload song
-      const {
-        data: songData,
-        error: songError,
-      } = await supabaseClient
-        .storage
-        .from('songs')
-        .upload(`song-${values.title}-${uniqueID}`, songFile, {
-          cacheControl: '3600',
-          upsert: false,
-        })
-      
-      if (songError) {
-        setIsLoading(false);
-        return toast.error('Failed song upload.')
-      }
 
       // upload image
       const {
@@ -86,14 +74,12 @@ const UploadModal: FC<UploadModalProps> = () => {
       const {
         error: supabaseError
       } = await supabaseClient
-        .from('songs')
-        .insert({
-          user_id: user.id,
-          title: values.title, 
-          author: values.author,
-          image_path: imageData.path,
-          song_path: songData.path
-        });
+        .from('users')
+        .update({
+          full_name: username,
+          avatar_url: imageData.path,
+        })
+        .eq('id', user.id);
       
       if (supabaseError) {
         setIsLoading(false);
@@ -102,7 +88,7 @@ const UploadModal: FC<UploadModalProps> = () => {
 
       router.refresh();
       setIsLoading(false);
-      toast.success('Song created!')
+      toast.success('登録が完了しました!')
       reset();
       uploadModal.onClose();
     } catch(e) {
@@ -120,8 +106,8 @@ const UploadModal: FC<UploadModalProps> = () => {
   }
   return (
     <Modal
-      title='Add a song'
-      description='Upload an mp3 file'
+      title='ユーザー情報を登録しましょう'
+      description='ユーザー名とプロフィール画像を入力してください'
       isOpen={uploadModal.isOpen}
       onChange={onChange}
     >
@@ -129,30 +115,15 @@ const UploadModal: FC<UploadModalProps> = () => {
         onSubmit={handleSubmit(onSubmit)}
         className='flex flex-col gap-y-4'
       >
-        <Input
-          id="title"
-          disabled={isLoading}
-          {...register('title', { required: true})}
-          placeholder="Song title"
-        />
-        <Input
-            id="author"
-            disabled={isLoading}
-            {...register('author', { required: true})}
-            placeholder="Song author"
-          />
-        <div>
-          <div className="pb-1">
-            Select a song file
-          </div>
-          <Input
-            id="song"
-            type="file"
-            disabled={isLoading}
-            accept='.mp3'
-            {...register('song', { required: true})}
-          />
+        <div className="pb-1">
+            Input your user name
         </div>
+        <Input
+          id="username"
+          disabled={isLoading}
+          {...register('username', { required: true})}
+          placeholder="User name"
+        />
         <div>
           <div className="pb-1">
             Select an image
@@ -176,4 +147,4 @@ const UploadModal: FC<UploadModalProps> = () => {
   );
 };
 
-export default UploadModal;
+export default UserRegisterModal;

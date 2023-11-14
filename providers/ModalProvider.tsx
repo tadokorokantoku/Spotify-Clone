@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import Modal from '@/components/Modal'
 import AuthModal from '@/domain/AuthoModal/AuthModal';
-import UploadModal from '@/domain/UploadModal/UploadModal';
+import UserRegisterModal from '@/domain/UserRegisterModal/UserRegisterModal';
 import SearchModal from '@/domain/SearchModal/SearchModal';
 
 const ModalProvider = () => {
@@ -24,7 +23,7 @@ const ModalProvider = () => {
   return (
     <>
       <AuthModal />
-      <UploadModal />
+      <UserRegisterModal />
       <SearchModal />
     </>
   );

@@ -38,7 +38,7 @@ const Library = () => {
           >
             <PiUserCircleThin className='text-2xl' />
             <div className='text-white'>
-              なまえ
+              {user.full_name ?? 'No name'}
             </div>
           </div>
         ))}
