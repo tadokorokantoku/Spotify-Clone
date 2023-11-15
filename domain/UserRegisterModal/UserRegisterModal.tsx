@@ -23,9 +23,15 @@ const UserRegisterModal: FC<UploadModalProps> = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log('userDetails', userDetails)
-    if (!userDetails?.full_name) {
+    if (!user || !userDetails) {
+      return;
+    }
+    if (!userDetails.full_name) {
       uploadModal.onOpen();
+    }
+
+    return () => {
+      uploadModal.onClose();
     }
   }, [userDetails])
 
