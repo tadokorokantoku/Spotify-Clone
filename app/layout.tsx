@@ -1,12 +1,12 @@
-import './globals.css';
+import Sidebar from '@/domain/Sidebar/Sidebar';
+import ModalProvider from '@/providers/ModalProvider';
+import SupabaseProvider from '@/providers/SupabaseProvider';
+import ToasterProvider from '@/providers/ToasterProvider';
+import UserProvider from '@/providers/UserProvider';
+import { MantineProvider, createTheme } from '@mantine/core';
 import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
-import Sidebar from '@/domain/Sidebar/Sidebar';
-import SupabaseProvider from '@/providers/SupabaseProvider';
-import UserProvider from '@/providers/UserProvider';
-import ModalProvider from '@/providers/ModalProvider';
-import ToasterProvider from '@/providers/ToasterProvider';
-import { MantineProvider, createTheme } from '@mantine/core';
+import './globals.css';
 
 const font = Figtree({ subsets: ['latin'] });
 
@@ -16,8 +16,8 @@ const theme = createTheme({
 });
 
 export const metadata: Metadata = {
-  title: 'Spotify Clone',
-  description: 'Listen to Music!',
+  title: 'Stround',
+  description: 'Pick your favorite songs, and share',
 };
 
 export default async function RootLayout({
