@@ -1,5 +1,3 @@
-import { Avatar } from '@mantine/core';
-import { PiUserCircleThin } from 'react-icons/pi';
 import UserListItem from './UserListItem';
 import { useUsers } from './useUsers';
 

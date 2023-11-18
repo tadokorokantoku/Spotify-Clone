@@ -1,8 +1,7 @@
-import { UserDetails } from '@/types';
-import { FC } from 'react';
 import useLoadImage from '@/hooks/useLoadImage';
+import { UserDetails } from '@/types';
 import { Avatar } from '@mantine/core';
-import { PiUserCircleThin } from 'react-icons/pi';
+import { FC } from 'react';
 
 interface userListItemProps {
   user: UserDetails;
