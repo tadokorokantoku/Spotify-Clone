@@ -4,8 +4,8 @@ import { Song } from '@/types';
 import { FC } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
-import useSearchModal from '@/hooks/useSearchModal';
 import Best10Songs from '@/domain/Best10Songs/Best10Songs';
+import useSearchModal from '@/hooks/useSearchModal';
 import { useUser } from '@/hooks/useUser';
 
 interface PageContentProps {
@@ -31,6 +31,7 @@ const PageContent: FC<PageContentProps> = ({ songs }) => {
                 <>
                   <div>
                     <button
+                      type='button'
                       className='
                         bg-blue-500
                         rounded-full
