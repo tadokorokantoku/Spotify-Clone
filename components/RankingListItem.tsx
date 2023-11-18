@@ -1,26 +1,22 @@
-"use client"
+'use client';
 
 import React, { FC } from 'react';
-import Image from 'next/image'
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { FaPlay} from 'react-icons/fa'
+import { FaPlay } from 'react-icons/fa';
 
 interface RankingListItemProps {
   image: string;
   name: string;
   href: string;
-};
+}
 
-const RankingListItem: FC<RankingListItemProps> = ({
-  image,
-  name,
-  href,
-}) => {
+const RankingListItem: FC<RankingListItemProps> = ({ image, name, href }) => {
   const router = useRouter();
 
   const onClick = () => {
     router.push(href);
-  }
+  };
 
   return (
     <button
@@ -39,22 +35,16 @@ const RankingListItem: FC<RankingListItemProps> = ({
         pr-4
       '
     >
-      <div className="
+      <div
+        className='
         relative
         min-h-[64px]
         min-w-[64px]
-      "
+      '
       >
-        <Image
-          className='object-cover'
-          fill
-          src={image}
-          alt="image"
-        />
+        <Image className='object-cover' fill src={image} alt='image' />
       </div>
-      <p className='font-medium truncate py-5'>
-        {name}
-      </p>
+      <p className='font-medium truncate py-5'>{name}</p>
       <div
         className='
           absolute
@@ -72,7 +62,7 @@ const RankingListItem: FC<RankingListItemProps> = ({
           hover:scale-110
         '
       >
-        <FaPlay className="text-black" />
+        <FaPlay className='text-black' />
       </div>
     </button>
   );

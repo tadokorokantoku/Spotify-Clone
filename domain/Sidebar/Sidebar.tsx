@@ -1,39 +1,42 @@
-"use client"
+'use client';
 
-import { usePathname } from 'next/navigation'
-import { useMemo } from 'react'
-import { HiHome } from 'react-icons/hi'
-import { BiSearch } from 'react-icons/bi'
+import { usePathname } from 'next/navigation';
+import { useMemo } from 'react';
+import { HiHome } from 'react-icons/hi';
+import { BiSearch } from 'react-icons/bi';
 
-import Box from '../../components/Box'
-import SidebarItem from './SidebarItem'
-import Library from '../Library/Library'
+import Box from '../../components/Box';
+import SidebarItem from './SidebarItem';
+import Library from '../Library/Library';
 
 interface SidebarProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({children}) => {
+const Sidebar: React.FC<SidebarProps> = ({ children }) => {
   const pathname = usePathname();
 
-  const routes = useMemo(() => [
-    {
-      icon: HiHome,
-      label: 'Home',
-      active: pathname !== '/search',
-      href: '/',
-    },
-    {
-      icon: BiSearch,
-      label: 'Search',
-      active: pathname === '/search',
-      href: '/',
-    },
-  ], [pathname])
+  const routes = useMemo(
+    () => [
+      {
+        icon: HiHome,
+        label: 'Home',
+        active: pathname !== '/search',
+        href: '/',
+      },
+      {
+        icon: BiSearch,
+        label: 'Search',
+        active: pathname === '/search',
+        href: '/',
+      },
+    ],
+    [pathname],
+  );
   return (
-    <div className="flex h-full">
-      <div 
-        className="
+    <div className='flex h-full'>
+      <div
+        className='
          hidden
          md:flex
          flex-col
@@ -42,11 +45,11 @@ const Sidebar: React.FC<SidebarProps> = ({children}) => {
          h-full
          w-[300px]
          p-2
-        "
+        '
       >
         <Box>
           <div
-           className='
+            className='
             flex
             flex-col
             gap-y-4
@@ -54,23 +57,18 @@ const Sidebar: React.FC<SidebarProps> = ({children}) => {
             py-4
            '
           >
-            {routes.map((item) => (
-              <SidebarItem
-                key={item.label}
-                {...item}
-              />
+            {routes.map(item => (
+              <SidebarItem key={item.label} {...item} />
             ))}
           </div>
         </Box>
-        <Box className="overflow-y-auto h-full">
+        <Box className='overflow-y-auto h-full'>
           <Library />
         </Box>
       </div>
-      <main className='h-full flex-1 overflow-y-auto py-2'>
-          {children}
-        </main>
+      <main className='h-full flex-1 overflow-y-auto py-2'>{children}</main>
     </div>
-  )
-}
+  );
+};
 
 export default Sidebar;

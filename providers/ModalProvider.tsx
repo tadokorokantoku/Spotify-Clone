@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from 'react';
 import AuthModal from '@/domain/AuthoModal/AuthModal';
@@ -7,14 +7,14 @@ import SearchModal from '@/domain/SearchModal/SearchModal';
 
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
-  
+
   useEffect(() => {
     setIsMounted(true);
 
     return () => {
       setIsMounted(false);
-    }
-  }, [])
+    };
+  }, []);
 
   if (!isMounted) {
     return null;

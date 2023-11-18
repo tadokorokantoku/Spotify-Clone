@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { FC, use, useEffect, useState } from 'react';
 import uniqid from 'uniqid';
@@ -6,17 +6,16 @@ import Modal from '../../components/Modal';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import useUploadModal from '@/hooks/useUploadModal';
 import Input from '@/components/Input';
-import Button from '@/components/Button'
+import Button from '@/components/Button';
 import toast from 'react-hot-toast';
 import { useUser } from '@/hooks/useUser';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/navigation';
 
-
-interface UploadModalProps {};
+interface UploadModalProps {}
 
 const UserRegisterModal: FC<UploadModalProps> = () => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const uploadModal = useUploadModal();
   const { user, userDetails } = useUser();
   const supabaseClient = useSupabaseClient();
@@ -32,21 +31,17 @@ const UserRegisterModal: FC<UploadModalProps> = () => {
 
     return () => {
       uploadModal.onClose();
-    }
-  }, [userDetails])
+    };
+  }, [userDetails]);
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-  } = useForm<FieldValues>({
+  const { register, handleSubmit, reset } = useForm<FieldValues>({
     defaultValues: {
       username: '',
       image: null,
-    }
-  })
+    },
+  });
 
-  const onSubmit: SubmitHandler<FieldValues> = async (values) => {
+  const onSubmit: SubmitHandler<FieldValues> = async values => {
     try {
       setIsLoading(true);
 
@@ -54,62 +49,57 @@ const UserRegisterModal: FC<UploadModalProps> = () => {
       const username = values.username;
 
       if (!imageFile || !username || !user) {
-        toast.error('Missing fields')
+        toast.error('Missing fields');
         return;
       }
 
       const uniqueID = uniqid();
 
       // upload image
-      const {
-        data: imageData,
-        error: imageError,
-      } = await supabaseClient
-        .storage
-        .from('images')
-        .upload(`image-${values.title}-${uniqueID}`, imageFile, {
-          cacheControl: '3600',
-          upsert: false,
-        })
-      
+      const { data: imageData, error: imageError } =
+        await supabaseClient.storage
+          .from('images')
+          .upload(`image-${values.title}-${uniqueID}`, imageFile, {
+            cacheControl: '3600',
+            upsert: false,
+          });
+
       if (imageError) {
         setIsLoading(false);
-        return toast.error('Failed image upload.')
+        return toast.error('Failed image upload.');
       }
 
-      const {
-        error: supabaseError
-      } = await supabaseClient
+      const { error: supabaseError } = await supabaseClient
         .from('users')
         .update({
           full_name: username,
           avatar_url: imageData.path,
         })
         .eq('id', user.id);
-      
+
       if (supabaseError) {
         setIsLoading(false);
-        return toast.error(supabaseError.message)
-      } 
+        return toast.error(supabaseError.message);
+      }
 
       router.refresh();
       setIsLoading(false);
-      toast.success('登録が完了しました!')
+      toast.success('登録が完了しました!');
       reset();
       uploadModal.onClose();
-    } catch(e) {
-      toast.error('something went wrong')
+    } catch (e) {
+      toast.error('something went wrong');
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const onChange = (open: boolean) => {
-    if (!open) { 
-      reset()
+    if (!open) {
+      reset();
       uploadModal.onClose();
     }
-  }
+  };
   return (
     <Modal
       title='ユーザー情報を登録しましょう'
@@ -117,35 +107,25 @@ const UserRegisterModal: FC<UploadModalProps> = () => {
       isOpen={uploadModal.isOpen}
       onChange={onChange}
     >
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className='flex flex-col gap-y-4'
-      >
-        <div className="pb-1">
-            Input your user name
-        </div>
+      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-y-4'>
+        <div className='pb-1'>Input your user name</div>
         <Input
-          id="username"
+          id='username'
           disabled={isLoading}
-          {...register('username', { required: true})}
-          placeholder="User name"
+          {...register('username', { required: true })}
+          placeholder='User name'
         />
         <div>
-          <div className="pb-1">
-            Select an image
-          </div>
+          <div className='pb-1'>Select an image</div>
           <Input
-            id="image"
-            type="file"
+            id='image'
+            type='file'
             disabled={isLoading}
             accept='image/*'
-            {...register('image', { required: true})}
+            {...register('image', { required: true })}
           />
         </div>
-        <Button
-          disabled={isLoading}
-          type="submit"
-        >
+        <Button disabled={isLoading} type='submit'>
           Create
         </Button>
       </form>

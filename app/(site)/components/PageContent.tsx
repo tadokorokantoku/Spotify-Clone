@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import { Song } from '@/types';
 import { FC } from 'react';
@@ -8,18 +8,15 @@ import useSearchModal from '@/hooks/useSearchModal';
 import Best10Songs from '@/domain/Best10Songs/Best10Songs';
 import { useUser } from '@/hooks/useUser';
 
-
 interface PageContentProps {
-  songs: Song[]
-};
+  songs: Song[];
+}
 
-const PageContent: FC<PageContentProps> = ({
-  songs,
-}) => {
+const PageContent: FC<PageContentProps> = ({ songs }) => {
   const user = useUser();
-  const mySongs = songs.filter((song) => song.user_id === user.user?.id);
+  const mySongs = songs.filter(song => song.user_id === user.user?.id);
   const searchModal = useSearchModal();
-  const canRegister = mySongs.length < 10 
+  const canRegister = mySongs.length < 10;
 
   return (
     <div className='mt-2 mb-7 px-6'>
@@ -48,13 +45,14 @@ const PageContent: FC<PageContentProps> = ({
                     </button>
                   </div>
                   <p className='text-center p-1'>
-                    { canRegister && `あと${10 - mySongs.length}曲登録することができます`}
+                    {canRegister &&
+                      `あと${10 - mySongs.length}曲登録することができます`}
                   </p>
                 </>
               )}
             </div>
           </div>
-      
+
           <div className='mt-10'>
             <Best10Songs songs={mySongs} />
           </div>
@@ -64,4 +62,4 @@ const PageContent: FC<PageContentProps> = ({
   );
 };
 
-export default PageContent;  
+export default PageContent;

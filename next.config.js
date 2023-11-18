@@ -11,11 +11,8 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: [
-      "nrzpasyvurbmkpdsacht.supabase.co",
-      "i.scdn.co"
-    ],
-  }
-}
+    domains: ['nrzpasyvurbmkpdsacht.supabase.co', 'i.scdn.co'],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { FaPlay } from 'react-icons/fa';
 
-interface PlayButtonProps {};
+interface PlayButtonProps {}
 
 const PlayButton: FC<PlayButtonProps> = () => {
   return (
@@ -22,7 +22,7 @@ const PlayButton: FC<PlayButtonProps> = () => {
         hover:scale-110
       '
     >
-      <FaPlay className="text-black" />
+      <FaPlay className='text-black' />
     </button>
   );
 };

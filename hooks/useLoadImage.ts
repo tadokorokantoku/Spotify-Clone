@@ -1,4 +1,4 @@
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 const useLoadImage = (image_path: string | null) => {
   const supabaseClient = useSupabaseClient();
@@ -7,12 +7,11 @@ const useLoadImage = (image_path: string | null) => {
     return null;
   }
 
-  const { data: imageData } = supabaseClient
-    .storage
+  const { data: imageData } = supabaseClient.storage
     .from('images')
-    .getPublicUrl(image_path)
+    .getPublicUrl(image_path);
 
   return imageData.publicUrl;
-}
+};
 
 export default useLoadImage;

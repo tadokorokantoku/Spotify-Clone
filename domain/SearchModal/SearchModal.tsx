@@ -10,28 +10,28 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useUser } from '@/hooks/useUser';
 
 type artist = {
-  name: string,
-  id: string,
-  type: string,
-  uri: string,
-}
+  name: string;
+  id: string;
+  type: string;
+  uri: string;
+};
 
 type album = {
-  artists: artist[],
-  name: string,
-  id: string,
-  type: string,
-  uri: string,
+  artists: artist[];
+  name: string;
+  id: string;
+  type: string;
+  uri: string;
   images: image[];
-  release_date: string,
-  total_tracks: number,
-}
+  release_date: string;
+  total_tracks: number;
+};
 
 type image = {
-  height: number,
-  url: string,
-  width: number,
-}
+  height: number;
+  url: string;
+  width: number;
+};
 
 interface fetchedSong {
   id: number;
@@ -43,10 +43,9 @@ interface fetchedSong {
   duration: number;
   preview_url: string;
   file: string;
-
 }
 
-interface SearchModalProps {};
+interface SearchModalProps {}
 
 const SearchModal: FC<SearchModalProps> = () => {
   const searchModal = useSearchModal();
@@ -61,33 +60,30 @@ const SearchModal: FC<SearchModalProps> = () => {
     const { value } = event.target;
     setQuery(value);
 
-    const query = value
-    searchSongs(query).then((songs) => {
-      setSongs(songs);
-    }).catch((e) => {
-      console.log(e);
-    });
-  }
+    const query = value;
+    searchSongs(query)
+      .then(songs => {
+        setSongs(songs);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
   const onClose = () => {
     searchModal.onClose();
     setQuery('');
     setSongs([]);
-  }
+  };
 
   const addSong = async (data: fetchedSong) => {
     if (!user) {
       return;
     }
 
-
-    const {
-      error: supabaseError
-    } = await supabaseClient
-    .from('songs')
-    .insert({
+    const { error: supabaseError } = await supabaseClient.from('songs').insert({
       user_id: user.id,
-      title: data.name, 
+      title: data.name,
       author: data.artists[0].name,
       image_path: data.album.images[1].url,
       song_path: data.preview_url,
@@ -96,9 +92,9 @@ const SearchModal: FC<SearchModalProps> = () => {
 
     if (supabaseError) {
       setIsLoading(false);
-      return toast.error(supabaseError.message)
-    } 
-  }
+      return toast.error(supabaseError.message);
+    }
+  };
 
   const deleteSong = async () => {
     if (searchModal.exchangeTargetId === null) {
@@ -107,14 +103,18 @@ const SearchModal: FC<SearchModalProps> = () => {
 
     const { error: supabaseError } = await supabaseClient
       .from('songs')
-      .update({ is_deleted: true, deleted_date: new Date(), update_at: new Date() })
+      .update({
+        is_deleted: true,
+        deleted_date: new Date(),
+        update_at: new Date(),
+      })
       .eq('id', searchModal.exchangeTargetId);
 
     if (supabaseError) {
       setIsLoading(false);
-      return toast.error(supabaseError.message)
-    } 
-  }
+      return toast.error(supabaseError.message);
+    }
+  };
 
   const onClickItem = async (data: fetchedSong) => {
     try {
@@ -122,17 +122,19 @@ const SearchModal: FC<SearchModalProps> = () => {
       if (searchModal.isExchanging) {
         await deleteSong();
       }
-  
+
       await addSong(data);
       setIsLoading(false);
-      toast.success(searchModal.isExchanging ? 'Song exchanged successfully!': 'Song added successfully!');
+      toast.success(
+        searchModal.isExchanging
+          ? 'Song exchanged successfully!'
+          : 'Song added successfully!',
+      );
     } catch (e) {
       console.log(e);
       toast.error('Something went wrong!');
     }
-
-    
-  }
+  };
 
   if (!searchModal.isOpen) {
     return null;
@@ -141,43 +143,39 @@ const SearchModal: FC<SearchModalProps> = () => {
   return (
     <Modal
       title={searchModal.isExchanging ? 'Exchange song' : 'Add song'}
-      description='' 
+      description=''
       isOpen={searchModal.isOpen}
       onChange={() => {}}
       onClose={onClose}
     >
       <div>
-        <div className="pb-1">
-          Enter the name of your favorite song!
-        </div>
+        <div className='pb-1'>Enter the name of your favorite song!</div>
         <Input
-          id="query"
-          type="text"
+          id='query'
+          type='text'
           value={query}
           disabled={isLoading}
           onChange={onChange}
-          placeholder="Song title"
+          placeholder='Song title'
         />
       </div>
       <div className='h-80 overflow-y-auto mt-5'>
-        {(songs.length !== 0 && query.length !== 0) ? songs.map((song) => (
-          <div key={song.id} className='mb-5 mt-5'>
-            <SearchItem
-            image={song.album.images[1].url} 
-            name={song.name}
-            author={song.artists[0].name}
-            onClick={() => onClickItem(song)}
-          />
-          </div>
-        )
+        {songs.length !== 0 && query.length !== 0 ? (
+          songs.map(song => (
+            <div key={song.id} className='mb-5 mt-5'>
+              <SearchItem
+                image={song.album.images[1].url}
+                name={song.name}
+                author={song.artists[0].name}
+                onClick={() => onClickItem(song)}
+              />
+            </div>
+          ))
         ) : (
-          <div className='text-neutral-400 h-40'>
-            No songs available.
-          </div>
+          <div className='text-neutral-400 h-40'>No songs available.</div>
         )}
       </div>
     </Modal>
-    
   );
 };
 

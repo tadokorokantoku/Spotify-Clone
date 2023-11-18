@@ -2,15 +2,14 @@ import { UserDetails } from '@/types';
 import { FC } from 'react';
 import useLoadImage from '@/hooks/useLoadImage';
 import { Avatar } from '@mantine/core';
-import  { PiUserCircleThin } from 'react-icons/pi'
-
+import { PiUserCircleThin } from 'react-icons/pi';
 
 interface userListItemProps {
   user: UserDetails;
-};
+}
 
 const UserListItem: FC<userListItemProps> = ({ user }) => {
-  const image = useLoadImage(user.avatar_url ?? '')
+  const image = useLoadImage(user.avatar_url ?? '');
   return (
     <div
       key={user.id}
@@ -25,10 +24,8 @@ const UserListItem: FC<userListItemProps> = ({ user }) => {
         cursor-pointer
       '
     >
-      <Avatar radius="md" src={image} alt="it's me" />
-      <div className='text-white'>
-        {user.full_name ?? 'No name'}
-      </div>
+      <Avatar radius='md' src={image} alt="it's me" />
+      <div className='text-white'>{user.full_name ?? 'No name'}</div>
     </div>
   );
 };

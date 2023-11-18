@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import * as Dialog from "@radix-ui/react-dialog"
-import { IoMdClose } from 'react-icons/io'
+import * as Dialog from '@radix-ui/react-dialog';
+import { IoMdClose } from 'react-icons/io';
 
 interface ModalProps {
   isOpen: boolean;
@@ -9,7 +9,7 @@ interface ModalProps {
   title: string;
   description: string;
   children: React.ReactNode;
-};
+}
 
 const Modal: FC<ModalProps> = ({
   isOpen,
@@ -20,11 +20,7 @@ const Modal: FC<ModalProps> = ({
   children,
 }) => {
   return (
-    <Dialog.Root
-      open={isOpen}
-      defaultOpen={isOpen}
-      onOpenChange={onChange}
-    >
+    <Dialog.Root open={isOpen} defaultOpen={isOpen} onOpenChange={onChange}>
       <Dialog.Portal>
         <Dialog.Overlay
           className='
@@ -33,8 +29,9 @@ const Modal: FC<ModalProps> = ({
             fixed
             inset-0
           '
-        />      
-        <Dialog.Content className='
+        />
+        <Dialog.Content
+          className='
           fixed
           drop-shadow-md
           border
@@ -52,30 +49,33 @@ const Modal: FC<ModalProps> = ({
           p-[25px]
           focus:outline-none
           max-w-md
-        ' >        
-          <Dialog.Title className='
+        '
+        >
+          <Dialog.Title
+            className='
             text-xl
             text-center
             font-bold
             mb-4
-          ' >
+          '
+          >
             {title}
-            </Dialog.Title>
-          <Dialog.Description className='
+          </Dialog.Title>
+          <Dialog.Description
+            className='
             mb-5
             text-sm
             leading-normal
             text-center
-          '>
+          '
+          >
             {description}
           </Dialog.Description>
-          <div>
-            {children}
-          </div>
+          <div>{children}</div>
           <Dialog.Close>
-            <button 
-            onClick={onClose}
-            className='
+            <button
+              onClick={onClose}
+              className='
               text-neutral-400
               hover:text-white
               absolute
@@ -88,13 +88,13 @@ const Modal: FC<ModalProps> = ({
               justify-center
               rounded-full
               focus:outline-none
-            '>
+            '
+            >
               <IoMdClose />
             </button>
           </Dialog.Close>
         </Dialog.Content>
       </Dialog.Portal>
-
     </Dialog.Root>
   );
 };

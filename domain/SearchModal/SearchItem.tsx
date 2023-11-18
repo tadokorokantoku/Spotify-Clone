@@ -1,24 +1,19 @@
-"use client"
+'use client';
 
 import React, { FC } from 'react';
-import Image from 'next/image'
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { FaPlay} from 'react-icons/fa'
+import { FaPlay } from 'react-icons/fa';
 import useLoadImage from '@/hooks/useLoadImage';
 
 interface SearchItemProps {
   image: string;
   name: string;
-  author: string
+  author: string;
   onClick: () => void;
-};
+}
 
-const SearchItem: FC<SearchItemProps> = ({
-  image,
-  name,
-  author,
-  onClick,
-}) => {
+const SearchItem: FC<SearchItemProps> = ({ image, name, author, onClick }) => {
   const router = useRouter();
 
   return (
@@ -39,28 +34,23 @@ const SearchItem: FC<SearchItemProps> = ({
         w-full
       '
     >
-      <div className="
+      <div
+        className='
         relative
         min-h-[64px]
         min-w-[64px]
-      "
+      '
       >
-        <Image
-          className='object-cover'
-          fill
-          src={image}
-          alt="image"
-        />
+        <Image className='object-cover' fill src={image} alt='image' />
       </div>
-      <div className="flex flex-col items-start gap-y-1" >
-        <p className='font-semibold truncate' >
-          {name}
-        </p>
-        <p 
+      <div className='flex flex-col items-start gap-y-1'>
+        <p className='font-semibold truncate'>{name}</p>
+        <p
           className='
             text-neutral-400
             text-sm
-        '>
+        '
+        >
           {author}
         </p>
       </div>

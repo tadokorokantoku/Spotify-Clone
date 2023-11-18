@@ -6,14 +6,14 @@ interface AuthModalStore {
   onSingIn: () => void;
   onSingUp: () => void;
   onClose: () => void;
-};
+}
 
-const useAuthModal = create<AuthModalStore>((set) => ({
+const useAuthModal = create<AuthModalStore>(set => ({
   isOpen: false,
   isSignUp: false,
   onSingIn: () => set({ isOpen: true, isSignUp: false }),
   onSingUp: () => set({ isOpen: true, isSignUp: true }),
-  onClose:  () => set({ isOpen: false, isSignUp: false }),
-}))
+  onClose: () => set({ isOpen: false, isSignUp: false }),
+}));
 
 export default useAuthModal;

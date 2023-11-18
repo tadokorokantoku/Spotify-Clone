@@ -1,20 +1,22 @@
-"use client";
+'use client';
 
 import { FC, useEffect } from 'react';
-import Modal from "../../components/Modal"
-import { useSessionContext, useSupabaseClient } from '@supabase/auth-helpers-react'
-import { Auth } from '@supabase/auth-ui-react'
+import Modal from '../../components/Modal';
+import {
+  useSessionContext,
+  useSupabaseClient,
+} from '@supabase/auth-helpers-react';
+import { Auth } from '@supabase/auth-ui-react';
 import { useRouter } from 'next/navigation';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import useAuthModal from '@/hooks/useAuthModal';
 
-
-interface AuthModalProps {};
+interface AuthModalProps {}
 
 const AuthModal: FC<AuthModalProps> = () => {
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
-  const { session } = useSessionContext(); 
+  const { session } = useSessionContext();
   const { onClose, isOpen, isSignUp } = useAuthModal();
 
   useEffect(() => {
@@ -22,7 +24,7 @@ const AuthModal: FC<AuthModalProps> = () => {
       router.refresh();
       onClose;
     }
-  }, [onClose, router, session])
+  }, [onClose, router, session]);
 
   useEffect(() => {
     const { data: authListener } = supabaseClient.auth.onAuthStateChange(
@@ -31,7 +33,7 @@ const AuthModal: FC<AuthModalProps> = () => {
           // signInやsignUpが正常に完了した時に実行したい関数をここに書く
           onClose();
         }
-      }
+      },
     );
 
     // Cleanup subscription on unmount
@@ -44,18 +46,18 @@ const AuthModal: FC<AuthModalProps> = () => {
     if (!open) {
       onClose();
     }
-  }
+  };
 
   return (
     <Modal
       title={isSignUp ? 'Please create your account!' : 'Welcome back!'}
-      description={isSignUp ? '' : 'Login to your account'} 
+      description={isSignUp ? '' : 'Login to your account'}
       isOpen={isOpen}
       onChange={onChange}
     >
       <Auth
         supabaseClient={supabaseClient}
-        theme="dark"
+        theme='dark'
         view={isSignUp ? 'sign_up' : 'sign_in'}
         providers={[]}
         appearance={{
@@ -64,10 +66,10 @@ const AuthModal: FC<AuthModalProps> = () => {
             default: {
               colors: {
                 brand: '#404040',
-                brandAccent: '#22c55e' 
-              }
-            }
-          }
+                brandAccent: '#22c55e',
+              },
+            },
+          },
         }}
       />
     </Modal>
