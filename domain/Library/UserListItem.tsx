@@ -1,6 +1,7 @@
 import useLoadImage from '@/hooks/useLoadImage';
 import { UserDetails } from '@/types';
 import { Avatar } from '@mantine/core';
+import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
 interface userListItemProps {
@@ -9,8 +10,14 @@ interface userListItemProps {
 
 const UserListItem: FC<userListItemProps> = ({ user }) => {
   const image = useLoadImage(user.avatar_url ?? '');
+  const router = useRouter();
+  const handleClick = () => {
+    router.push(`user/${user.id}`);
+  };
   return (
     <div
+      onClick={handleClick}
+      onKeyDown={handleClick}
       key={user.id}
       className='
         flex

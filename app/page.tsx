@@ -1,12 +1,9 @@
 import Header from '@/domain/Header/Header';
-import getSongs from '@/actions/getSongs';
-import PageContent from './components/PageContent';
+import PageContent from './_components/PageContent';
 
 export const revalidate = 0;
 
 export default async function Home() {
-  const songs = await getSongs();
-
   return (
     <div
       className='
@@ -29,7 +26,7 @@ export default async function Home() {
           Welcome back!
         </h1>
       </Header>
-      <PageContent songs={songs} />
+      <PageContent />
     </div>
   );
 }

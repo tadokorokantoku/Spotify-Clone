@@ -1,20 +1,19 @@
 'use client';
 
 import { Song } from '@/types';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
+import useSongs from '@/actions/useSongs';
 import Best10Songs from '@/domain/Best10Songs/Best10Songs';
 import useSearchModal from '@/hooks/useSearchModal';
 import { useUser } from '@/hooks/useUser';
 
-interface PageContentProps {
-  songs: Song[];
-}
-
-const PageContent: FC<PageContentProps> = ({ songs }) => {
+const PageContent: FC = () => {
+  console.log('PageContent');
   const user = useUser();
-  const mySongs = songs.filter(song => song.user_id === user.user?.id);
+  const mySongs = useSongs(user.user?.id);
+
   const searchModal = useSearchModal();
   const canRegister = mySongs.length < 10;
 
