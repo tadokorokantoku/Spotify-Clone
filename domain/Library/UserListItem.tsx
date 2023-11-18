@@ -12,7 +12,7 @@ const UserListItem: FC<userListItemProps> = ({ user }) => {
   const image = useLoadImage(user.avatar_url ?? '');
   const router = useRouter();
   const handleClick = () => {
-    router.push(`user/${user.id}`);
+    router.push(`/user/${user.id}`);
   };
   return (
     <div
