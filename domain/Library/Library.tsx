@@ -1,5 +1,7 @@
 import  { PiUserCircleThin } from 'react-icons/pi'
 import { useUsers } from './useUsers';
+import { Avatar } from '@mantine/core';
+import UserListItem from './UserListItem';
 
 const Library = () => {
   const users = useUsers();
@@ -24,23 +26,7 @@ const Library = () => {
         px-3
       '>
         {users.map((user) => (
-          <div
-            key={user.id}
-            className='
-              flex
-              items-center
-              gap-x-3
-              p-2
-              rounded-md
-              hover:bg-gray-700
-              transition
-            '
-          >
-            <PiUserCircleThin className='text-2xl' />
-            <div className='text-white'>
-              {user.full_name ?? 'No name'}
-            </div>
-          </div>
+          <UserListItem key={user.id} user={user} />
         ))}
       </div>
     </div>

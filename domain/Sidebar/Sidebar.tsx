@@ -8,10 +8,8 @@ import { BiSearch } from 'react-icons/bi'
 import Box from '../../components/Box'
 import SidebarItem from './SidebarItem'
 import Library from '../Library/Library'
-import { UserDetails } from '@/types'
 
 interface SidebarProps {
-  users: UserDetails[];
   children: React.ReactNode
 }
 
@@ -29,7 +27,7 @@ const Sidebar: React.FC<SidebarProps> = ({children}) => {
       icon: BiSearch,
       label: 'Search',
       active: pathname === '/search',
-      href: '/search',
+      href: '/',
     },
   ], [pathname])
   return (

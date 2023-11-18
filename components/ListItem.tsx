@@ -51,7 +51,7 @@ const ListItem: FC<ListItemProps> = ({
           alt="image"
         />
       </div>
-      <div className="flex flex-col items-start gap-y-1" >
+      <div className="flex flex-col items-start gap-y-1 text-white" >
         <p className='font-semibold truncate' >
           {title}
         </p>

@@ -1,5 +1,4 @@
 import Header from '@/domain/Header/Header'
-
 import getSongs from '@/actions/getSongs'
 import PageContent from './components/PageContent';
 

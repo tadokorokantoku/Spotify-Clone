@@ -6,8 +6,15 @@ import SupabaseProvider from '@/providers/SupabaseProvider'
 import UserProvider from '@/providers/UserProvider'
 import ModalProvider from '@/providers/ModalProvider'
 import ToasterProvider from '@/providers/ToasterProvider'
+import  { MantineProvider, createTheme }   from '@mantine/core';
+
 
 const font = Figtree({ subsets: ['latin'] })
+
+const theme = createTheme({
+  white: '#000',
+  black: '#000',
+});
 
 export const metadata: Metadata = {
   title: 'Spotify Clone',
@@ -22,15 +29,17 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <ToasterProvider />
-        <SupabaseProvider>
-          <UserProvider>
-            <ModalProvider />
-            <Sidebar>
-              {children}
-            </Sidebar>
-          </UserProvider>
-        </SupabaseProvider>
+        <MantineProvider theme={theme} defaultColorScheme='dark' >
+          <ToasterProvider />
+          <SupabaseProvider>
+            <UserProvider>
+              <ModalProvider />
+              <Sidebar>
+                {children}
+              </Sidebar>
+            </UserProvider>
+          </SupabaseProvider>
+        </MantineProvider>
       </body>
     </html>
   )
