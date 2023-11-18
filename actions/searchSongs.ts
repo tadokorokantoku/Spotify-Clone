@@ -1,4 +1,5 @@
 import axios from 'axios';
+import sortBy from 'lodash/sortBy';
 import qs from 'qs';
 
 let accessToken: string | null = null;
@@ -39,7 +40,7 @@ const getAccessToken = async (): Promise<string> => {
 export const searchSongs = async (query: string) => {
   const accessToken = await getAccessToken();
   const response = await axios.get(
-    `https://api.spotify.com/v1/search?q=${query}&type=track&market=JP&limit=30`,
+    `https://api.spotify.com/v1/search?q=${query}%20year:2022-2023&type=track&market=JP&limit=50`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -47,5 +48,6 @@ export const searchSongs = async (query: string) => {
       },
     },
   );
-  return response.data.tracks.items;
+
+  return sortBy(response.data.tracks.items, 'popularity').reverse();
 };
