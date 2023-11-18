@@ -11,14 +11,21 @@ const useSongs = (userId: useSongsProps): Song[] => {
   const [songs, setSongs] = useState<Song[]>([]);
 
   useEffect(() => {
+    if (!userId) {
+      setSongs([]);
+      return;
+    }
+
     supabase
       .from('songs')
       .select('*')
-      .eq('user_id', userId)
+      .eq('user_id', userId ?? '')
       .eq('is_deleted', false)
       .order('created_at', { ascending: false })
       .then(
-        res => setSongs(res.data ?? []),
+        res => {
+          setSongs(res.data ?? []);
+        },
         err => console.log(err),
       );
   }, [userId]);

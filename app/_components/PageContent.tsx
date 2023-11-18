@@ -10,7 +10,6 @@ import useSearchModal from '@/hooks/useSearchModal';
 import { useUser } from '@/hooks/useUser';
 
 const PageContent: FC = () => {
-  console.log('PageContent');
   const user = useUser();
   const mySongs = useSongs(user.user?.id);
 
