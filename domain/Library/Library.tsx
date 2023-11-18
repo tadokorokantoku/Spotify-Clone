@@ -1,7 +1,9 @@
+import { useUser } from '@/hooks/useUser';
 import UserListItem from './UserListItem';
 import { useUsers } from './useUsers';
 
 const Library = () => {
+  const { user: me } = useUser();
   const users = useUsers();
 
   return (
@@ -15,9 +17,11 @@ const Library = () => {
         px-3
       '
       >
-        {users.map(user => (
-          <UserListItem key={user.id} user={user} />
-        ))}
+        {users
+          .filter(user => user.id !== me?.id)
+          .map(user => (
+            <UserListItem key={user.id} user={user} />
+          ))}
       </div>
     </div>
   );
