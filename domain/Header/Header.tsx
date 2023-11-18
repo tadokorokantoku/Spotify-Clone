@@ -4,16 +4,12 @@ import React, { FC } from 'react';
 import { useRouter } from 'next/navigation'
 import { twMerge } from 'tailwind-merge';
 import {RxCaretLeft, RxCaretRight} from 'react-icons/rx'
-import { Avatar } from '@mantine/core';
 
 import Button from '@/components/Button'
 import useAuthModal from '@/hooks/useAuthModal';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useUser } from '@/hooks/useUser'
-import { FaUserAlt } from 'react-icons/fa';
-import toast from 'react-hot-toast';
-import useLoadImage from '@/hooks/useLoadImage';
 import '@mantine/core/styles.css';
+import HeaderIcon from './HeaderIcon';
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -27,21 +23,7 @@ const Header: FC<HeaderProps> = ({
   const authModal = useAuthModal();
   const router = useRouter();
 
-  const supabaseClient = useSupabaseClient();
   const { user, userDetails } = useUser();
-  const image = useLoadImage(userDetails?.avatar_url ?? '')
-
-  const handleLogout = async () => {
-    const  {error} = await supabaseClient.auth.signOut()
-
-    router.refresh();
-
-    if (error) {
-      toast.error(error.message)
-    } else {
-      toast.success('Logged out!')
-    }
-  }
 
   return (
     <div
@@ -92,21 +74,8 @@ const Header: FC<HeaderProps> = ({
               <RxCaretRight className="text-white" size={35} />
             </button>
           </div> 
-          {user ? (
-            <div className='flex gap-x-4 items-center'>
-              <Button
-                onClick={handleLogout}
-                className='bg-white px-6 py-2'
-              >
-                Logout
-              </Button>
-              <Button
-                onClick={() => {}}
-                className='bg-transparent'
-              >
-                { image ? <Avatar radius="md" src={image} alt="it's me" /> : <FaUserAlt />}
-              </Button>
-            </div>
+          {user && userDetails ? (
+            <HeaderIcon user={userDetails} />
           ) : (
             <>
               <div>
