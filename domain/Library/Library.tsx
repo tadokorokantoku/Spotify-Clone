@@ -1,22 +1,13 @@
-import { PiUserCircleThin } from 'react-icons/pi';
-import { useUsers } from './useUsers';
 import { Avatar } from '@mantine/core';
+import { PiUserCircleThin } from 'react-icons/pi';
 import UserListItem from './UserListItem';
+import { useUsers } from './useUsers';
 
 const Library = () => {
   const users = useUsers();
 
   return (
     <div className='flex flex-col'>
-      <div
-        className='
-          flex
-          items-center
-          justify-between
-          px-5
-          pt-4
-        '
-      ></div>
       <div
         className='
         flex

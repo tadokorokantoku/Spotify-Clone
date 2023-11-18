@@ -17,6 +17,7 @@ const SongItem: FC<SongItemProps> = ({ title, author, imagePath, onClick }) => {
   return (
     <div
       onClick={onClick}
+      onKeyDown={onClick}
       className='
         relative
         group

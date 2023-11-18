@@ -1,5 +1,5 @@
-import { FC } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
+import { FC } from 'react';
 import { IoMdClose } from 'react-icons/io';
 
 interface ModalProps {
@@ -74,6 +74,7 @@ const Modal: FC<ModalProps> = ({
           <div>{children}</div>
           <Dialog.Close>
             <button
+              type='button'
               onClick={onClose}
               className='
               text-neutral-400

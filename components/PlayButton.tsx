@@ -1,11 +1,10 @@
 import { FC } from 'react';
 import { FaPlay } from 'react-icons/fa';
 
-interface PlayButtonProps {}
-
-const PlayButton: FC<PlayButtonProps> = () => {
+const PlayButton: FC = () => {
   return (
     <button
+      type='button'
       className='
         transition
         opacity-0

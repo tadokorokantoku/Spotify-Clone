@@ -4,10 +4,10 @@ import Modal from '../../components/Modal';
 import { searchSongs } from '@/actions/searchSongs';
 import Input from '@/components/Input';
 import SearchItem from '@/domain/SearchModal/SearchItem';
-import toast from 'react-hot-toast';
 import useSearchModal from '@/hooks/useSearchModal';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useUser } from '@/hooks/useUser';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import toast from 'react-hot-toast';
 
 type artist = {
   name: string;
@@ -45,9 +45,7 @@ interface fetchedSong {
   file: string;
 }
 
-interface SearchModalProps {}
-
-const SearchModal: FC<SearchModalProps> = () => {
+const SearchModal: FC = () => {
   const searchModal = useSearchModal();
   const supabaseClient = useSupabaseClient();
   const { user } = useUser();

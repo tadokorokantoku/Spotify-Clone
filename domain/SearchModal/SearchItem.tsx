@@ -1,10 +1,8 @@
 'use client';
 
-import React, { FC } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { FaPlay } from 'react-icons/fa';
-import useLoadImage from '@/hooks/useLoadImage';
+import React, { FC } from 'react';
 
 interface SearchItemProps {
   image: string;
@@ -18,6 +16,7 @@ const SearchItem: FC<SearchItemProps> = ({ image, name, author, onClick }) => {
 
   return (
     <button
+      type='button'
       onClick={onClick}
       className='
         relative

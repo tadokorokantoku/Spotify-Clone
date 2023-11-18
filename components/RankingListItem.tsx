@@ -1,8 +1,8 @@
 'use client';
 
-import React, { FC } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import React, { FC } from 'react';
 import { FaPlay } from 'react-icons/fa';
 
 interface RankingListItemProps {
@@ -20,6 +20,7 @@ const RankingListItem: FC<RankingListItemProps> = ({ image, name, href }) => {
 
   return (
     <button
+      type='button'
       onClick={onClick}
       className='
         relative

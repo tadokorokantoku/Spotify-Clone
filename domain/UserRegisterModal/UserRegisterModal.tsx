@@ -1,20 +1,18 @@
 'use client';
 
-import { FC, use, useEffect, useState } from 'react';
-import uniqid from 'uniqid';
-import Modal from '../../components/Modal';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import useUploadModal from '@/hooks/useUploadModal';
-import Input from '@/components/Input';
 import Button from '@/components/Button';
-import toast from 'react-hot-toast';
+import Input from '@/components/Input';
+import useUploadModal from '@/hooks/useUploadModal';
 import { useUser } from '@/hooks/useUser';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/navigation';
+import { FC, useEffect, useState } from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import uniqid from 'uniqid';
+import Modal from '../../components/Modal';
 
-interface UploadModalProps {}
-
-const UserRegisterModal: FC<UploadModalProps> = () => {
+const UserRegisterModal: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const uploadModal = useUploadModal();
   const { user, userDetails } = useUser();
@@ -32,7 +30,7 @@ const UserRegisterModal: FC<UploadModalProps> = () => {
     return () => {
       uploadModal.onClose();
     };
-  }, [userDetails]);
+  }, [userDetails, user, uploadModal]);
 
   const { register, handleSubmit, reset } = useForm<FieldValues>({
     defaultValues: {

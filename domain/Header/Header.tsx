@@ -1,9 +1,9 @@
 'use client';
 
-import React, { FC } from 'react';
 import { useRouter } from 'next/navigation';
-import { twMerge } from 'tailwind-merge';
+import React, { FC } from 'react';
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx';
+import { twMerge } from 'tailwind-merge';
 
 import Button from '@/components/Button';
 import useAuthModal from '@/hooks/useAuthModal';
@@ -52,6 +52,7 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
           '
         >
           <button
+            type='button'
             onClick={() => router.back()}
             className='
               rounded-full
@@ -66,6 +67,7 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
             <RxCaretLeft className='text-white' size={35} />
           </button>
           <button
+            type='button'
             onClick={() => router.forward()}
             className='
               rounded-full
