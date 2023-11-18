@@ -66,21 +66,7 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
           >
             <RxCaretLeft className='text-white' size={35} />
           </button>
-          <button
-            type='button'
-            onClick={() => router.forward()}
-            className='
-              rounded-full
-              bg-black
-              flex
-              items-center
-              justify-center
-              hover:opacity-75
-              transition
-            '
-          >
-            <RxCaretRight className='text-white' size={35} />
-          </button>
+          <div className='ml-5'>{children}</div>
         </div>
         {user && userDetails ? (
           <HeaderIcon user={userDetails} />
@@ -111,7 +97,6 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
           </>
         )}
       </div>
-      {children}
     </div>
   );
 };

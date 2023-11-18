@@ -1,4 +1,5 @@
 import { useUser } from '@/hooks/useUser';
+import styles from './Library.module.css';
 import UserListItem from './UserListItem';
 import { useUsers } from './useUsers';
 
@@ -17,6 +18,7 @@ const Library = () => {
         px-3
       '
       >
+        <p className={styles.label}>最近追加されたユーザー</p>
         {users
           .filter(user => user.id !== me?.id)
           .map(user => (
