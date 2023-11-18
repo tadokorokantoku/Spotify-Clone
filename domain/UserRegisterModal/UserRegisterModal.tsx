@@ -30,7 +30,7 @@ const UserRegisterModal: FC = () => {
     return () => {
       uploadModal.onClose();
     };
-  }, [userDetails, user, uploadModal]);
+  }, [userDetails, user]);
 
   const { register, handleSubmit, reset } = useForm<FieldValues>({
     defaultValues: {
