@@ -33,19 +33,19 @@ const HeaderIcon: FC<HeaderIconProps> = ({ user }) => {
 
   return (
     <div className='flex gap-x-4 items-center'>
-      <Button
-        onClick={handleLogout}
-        className='bg-white px-6 py-2'
-      >
-        Logout
-      </Button>
-      <Button
-        onClick={() => {}}
-        className='bg-transparent'
-      >
-        { image ? <Avatar radius="md" src={image} alt="it's me" /> : <FaUserAlt />}
-      </Button>
-    </div>
+        <Button
+          onClick={handleLogout}
+          className='bg-white px-6 py-2'
+        >
+          Logout
+        </Button>
+        <Button
+          onClick={() => {}}
+          className='bg-transparent'
+        >
+          { image ? <Avatar radius="md" src={image} alt="it's me" /> : <FaUserAlt />}
+        </Button>
+      </div>
   );
 };
 
