@@ -61,7 +61,7 @@ export default function OtherUser({ params }: { params: { pid: string } }) {
         <AudioPlayer />
       </div>
       <div className='p-8'>
-        <Best10Songs songs={songs} />
+        <Best10Songs songs={songs} forMe={false} />
       </div>
     </div>
   );

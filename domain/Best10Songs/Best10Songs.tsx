@@ -1,13 +1,14 @@
 import ListItem from '@/components/ListItem';
 import useSearchModal from '@/hooks/useSearchModal';
 import { Song } from '@/types';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 
 interface Best10SongsProps {
   songs: Song[];
+  forMe: boolean;
 }
 
-const Best10Songs: FC<Best10SongsProps> = ({ songs }) => {
+const Best10Songs: FC<Best10SongsProps> = ({ songs, forMe }) => {
   const searchModal = useSearchModal();
 
   return (
@@ -25,7 +26,7 @@ const Best10Songs: FC<Best10SongsProps> = ({ songs }) => {
             <ListItem
               key={item.id}
               songId={item.id}
-              onClick={() => searchModal.onExchange(item.id)}
+              onClick={forMe ? () => searchModal.onExchange(item.id) : () => {}}
               title={item.title}
               author={item.author}
               imagePath={item.image_path}

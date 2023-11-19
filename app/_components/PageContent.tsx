@@ -74,7 +74,7 @@ const PageContent: FC = () => {
             <AudioPlayer />
           </div>
           <div className='mt-10'>
-            <Best10Songs songs={mySongs} />
+            <Best10Songs songs={mySongs} forMe />
           </div>
         </>
       )}
