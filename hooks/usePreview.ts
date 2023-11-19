@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 interface PreviewStore {
-  audioUrl: string;
+  audioUrl: string | null;
   playerRef: React.RefObject<HTMLAudioElement> | null;
   isPlayable: boolean;
   setAudio: (url: string) => void;
