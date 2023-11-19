@@ -1,10 +1,10 @@
 'use client';
 
-import { Song } from '@/types';
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 import useSongs from '@/actions/useSongs';
+import AudioPlayer from '@/components/AudioPlayer';
 import Best10Songs from '@/domain/Best10Songs/Best10Songs';
 import useSearchModal from '@/hooks/useSearchModal';
 import { useUser } from '@/hooks/useUser';
@@ -51,7 +51,9 @@ const PageContent: FC = () => {
               )}
             </div>
           </div>
-
+          <div className='mt-8'>
+            <AudioPlayer audioUrl='' />
+          </div>
           <div className='mt-10'>
             <Best10Songs songs={mySongs} />
           </div>

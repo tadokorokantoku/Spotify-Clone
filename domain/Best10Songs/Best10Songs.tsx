@@ -1,7 +1,7 @@
-import { FC } from 'react';
-import { Song } from '@/types';
 import ListItem from '@/components/ListItem';
 import useSearchModal from '@/hooks/useSearchModal';
+import { Song } from '@/types';
+import { FC } from 'react';
 
 interface Best10SongsProps {
   songs: Song[];
