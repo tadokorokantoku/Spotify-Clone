@@ -61,8 +61,6 @@ const SearchModal: FC = () => {
     const query = value;
     searchSongs(query)
       .then(songs => {
-        console.log(songs);
-
         setSongs(songs);
       })
       .catch(e => {
