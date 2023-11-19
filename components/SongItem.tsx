@@ -71,7 +71,7 @@ const SongItem: FC<SongItemProps> = ({ title, author, imagePath, onClick }) => {
           right-5
         '
         >
-          <PlayButton />
+          {/* <PlayButton /> */}
         </div>
       </div>
     </div>

@@ -40,7 +40,14 @@ const SearchItem: FC<SearchItemProps> = ({ image, name, author, onClick }) => {
         min-w-[64px]
       '
       >
-        <Image className='object-cover' fill src={image} alt='image' />
+        <Image
+          className='object-cover'
+          height={64}
+          width={64}
+          // fill
+          src={image}
+          alt='image'
+        />
       </div>
       <div className='flex flex-col items-start gap-y-1'>
         <p className='font-semibold truncate'>{name}</p>

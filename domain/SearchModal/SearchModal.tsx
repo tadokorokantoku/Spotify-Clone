@@ -154,7 +154,7 @@ const SearchModal: FC = () => {
           value={query}
           disabled={isLoading}
           onChange={onChange}
-          placeholder='Song title'
+          placeholder='「曲名 アーティスト名」と入力するとBetter！'
         />
       </div>
       <div className='h-80 overflow-y-auto mt-5'>
@@ -162,7 +162,7 @@ const SearchModal: FC = () => {
           songs.map(song => (
             <div key={song.id} className='mb-5 mt-5'>
               <SearchItem
-                image={song.album.images[1].url}
+                image={song.album.images[1]?.url}
                 name={song.name}
                 author={song.artists[0].name}
                 onClick={() => onClickItem(song)}

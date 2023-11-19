@@ -1,31 +1,34 @@
 'use client';
 import useSongs from '@/actions/useSongs';
 import { useTargetUser } from '@/actions/useTargetUser';
+import AudioPlayer from '@/components/AudioPlayer';
 import Best10Songs from '@/domain/Best10Songs/Best10Songs';
 import Header from '@/domain/Header/Header';
 import useLoadImage from '@/hooks/useLoadImage';
+import usePreview from '@/hooks/usePreview';
 import { Avatar } from '@mantine/core';
-
-interface OtherUserProps {
-  prop: string;
-}
-
-// export async function generateStaticParams() {
-//   const users = await fetch('https://.../user').then(res => res.json());
-
-//   return users.map((user: { pid: string }) => ({
-//     userIds: user.pid,
-//   }));
-// }
+import { useEffect } from 'react';
 
 export default function OtherUser({ params }: { params: { pid: string } }) {
   const user = useTargetUser(params.pid);
   const songs = useSongs(params.pid);
   const image = useLoadImage(user?.avatar_url ?? '');
+  const { setAudio, reset, songId } = usePreview();
+
+  useEffect(() => {
+    if (!songId) return;
+
+    if (songs.length !== 0 && songs[0].song_path) {
+      setAudio(songs[0].song_path, songs[0].id);
+      return;
+    }
+
+    return () => {
+      reset();
+    };
+  }, [songs, setAudio]);
 
   if (!user) return null;
-
-  console.log('user', user);
 
   return (
     <div
@@ -54,6 +57,9 @@ export default function OtherUser({ params }: { params: { pid: string } }) {
           </h1>
         </div>
       </Header>
+      <div className='ml-8'>
+        <AudioPlayer />
+      </div>
       <div className='p-8'>
         <Best10Songs songs={songs} />
       </div>
