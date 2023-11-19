@@ -26,7 +26,7 @@ const AudioPlayer: React.FC = () => {
     <div>
       <audio controls ref={audioRef}>
         <track kind='captions' />
-        <source src={audioUrl} type='audio/mpeg' />
+        <source src={audioUrl ?? ''} type='audio/mpeg' />
         Your browser does not support the audio element.
       </audio>
     </div>
