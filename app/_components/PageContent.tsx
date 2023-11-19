@@ -13,12 +13,14 @@ import { useUser } from '@/hooks/useUser';
 const PageContent: FC = () => {
   const user = useUser();
   const mySongs = useSongs(user.user?.id);
-  const { setAudio, reset } = usePreview();
+  const { setAudio, reset, songId } = usePreview();
 
   const searchModal = useSearchModal();
   const canRegister = mySongs.length < 10;
 
   useEffect(() => {
+    if (!songId) return;
+
     if (mySongs.length !== 0 && mySongs[0].song_path) {
       setAudio(mySongs[0].song_path, mySongs[0].id);
       return;

@@ -3,7 +3,7 @@
 import usePreview from '@/hooks/usePreview';
 import Image from 'next/image';
 import React, { FC } from 'react';
-import { FaPlay } from 'react-icons/fa';
+import { HiMiniSpeakerWave } from 'react-icons/hi2';
 import PlayButton from './PlayButton';
 
 interface ListItemProps {
@@ -23,7 +23,7 @@ const ListItem: FC<ListItemProps> = ({
   author,
   audioUrl,
 }) => {
-  const { setAudioAndPlay } = usePreview();
+  const { setAudioAndPlay, songId: playingSongId } = usePreview();
 
   const onPlay = (event: React.BaseSyntheticEvent) => {
     // 曲の入れ替え処理が発火しないように止める
@@ -32,6 +32,8 @@ const ListItem: FC<ListItemProps> = ({
     if (!audioUrl) return;
     setAudioAndPlay(audioUrl ?? '', songId);
   };
+
+  const isPlaying = playingSongId === songId;
 
   return (
     <button
@@ -62,7 +64,22 @@ const ListItem: FC<ListItemProps> = ({
         <Image className='object-cover' fill src={imagePath} alt='image' />
       </div>
       <div className='flex flex-col items-start gap-y-1 text-white'>
-        <p className='font-semibold truncate'>{title}</p>
+        <div className='flex'>
+          <p
+            className='font-semibold truncate'
+            style={isPlaying ? { color: 'rgb(34 197 94)' } : {}}
+          >
+            {title}
+          </p>
+          {isPlaying && (
+            <div
+              className='ml-2 items-center flex'
+              style={{ color: 'rgb(34 197 94)' }}
+            >
+              <HiMiniSpeakerWave />
+            </div>
+          )}
+        </div>
         <p
           className='
             text-neutral-400
