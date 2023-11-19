@@ -1,10 +1,15 @@
 import { FC } from 'react';
 import { FaPlay } from 'react-icons/fa';
 
-const PlayButton: FC = () => {
+interface PlayButtonProps {
+  onClick: (event: React.BaseSyntheticEvent) => void;
+}
+
+const PlayButton: FC<PlayButtonProps> = props => {
   return (
     <button
       type='button'
+      onClick={props.onClick}
       className='
         transition
         opacity-0

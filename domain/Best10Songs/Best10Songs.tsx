@@ -1,7 +1,7 @@
 import ListItem from '@/components/ListItem';
 import useSearchModal from '@/hooks/useSearchModal';
 import { Song } from '@/types';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 interface Best10SongsProps {
   songs: Song[];
@@ -9,6 +9,7 @@ interface Best10SongsProps {
 
 const Best10Songs: FC<Best10SongsProps> = ({ songs }) => {
   const searchModal = useSearchModal();
+
   return (
     <div>
       <div
@@ -27,6 +28,7 @@ const Best10Songs: FC<Best10SongsProps> = ({ songs }) => {
               title={item.title}
               author={item.author}
               imagePath={item.image_path}
+              audioUrl={item.song_path}
             />
           ))
         ) : (

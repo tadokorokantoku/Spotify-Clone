@@ -1,19 +1,35 @@
 'use client';
 
+import usePreview from '@/hooks/usePreview';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import React, { FC } from 'react';
 import { FaPlay } from 'react-icons/fa';
+import PlayButton from './PlayButton';
 
 interface ListItemProps {
   title: string;
   imagePath: string;
   onClick: () => void;
+  audioUrl?: string;
   author?: string;
 }
 
-const ListItem: FC<ListItemProps> = ({ title, imagePath, onClick, author }) => {
-  const router = useRouter();
+const ListItem: FC<ListItemProps> = ({
+  title,
+  imagePath,
+  onClick,
+  author,
+  audioUrl,
+}) => {
+  const { setAudioAndPlay } = usePreview();
+
+  const onPlay = (event: React.BaseSyntheticEvent) => {
+    // 曲の入れ替え処理が発火しないように止める
+    event.stopPropagation();
+
+    if (!audioUrl) return;
+    setAudioAndPlay(audioUrl ?? '');
+  };
 
   return (
     <button
@@ -57,21 +73,10 @@ const ListItem: FC<ListItemProps> = ({ title, imagePath, onClick, author }) => {
       <div
         className='
           absolute
-          transition
-          opacity-0
-          rounded-full
-          flex
-          items-center
-          justify-center
-          bg-green-500
-          p-4
-          drop-shadow-md
-          right-5
-          group-hover:opacity-100
-          hover:scale-110
+          right-10
         '
       >
-        <FaPlay className='text-black' />
+        <PlayButton onClick={e => onPlay(e)} />
       </div>
     </button>
   );
