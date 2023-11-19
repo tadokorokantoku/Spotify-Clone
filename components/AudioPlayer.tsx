@@ -1,9 +1,8 @@
 import usePreview from '@/hooks/usePreview';
-import { set } from 'lodash';
 import { useEffect, useRef } from 'react';
 
 const AudioPlayer: React.FC = () => {
-  const { audioUrl, setRef, isPlayable } = usePreview();
+  const { audioUrl, setRef, isPlayable, reset } = usePreview();
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -16,11 +15,11 @@ const AudioPlayer: React.FC = () => {
     if (isPlayable && audioRef.current) {
       audioRef.current?.play();
     }
-  }, [audioUrl, isPlayable]);
+  }, [audioUrl, isPlayable, reset]);
 
   useEffect(() => {
     setRef(audioRef);
-  }, [audioRef.current]);
+  }, [setRef]);
 
   return (
     <div>

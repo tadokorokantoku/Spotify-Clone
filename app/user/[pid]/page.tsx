@@ -13,18 +13,16 @@ export default function OtherUser({ params }: { params: { pid: string } }) {
   const user = useTargetUser(params.pid);
   const songs = useSongs(params.pid);
   const image = useLoadImage(user?.avatar_url ?? '');
-  const { setAudio, audioUrl } = usePreview();
+  const { setAudio, reset } = usePreview();
 
   useEffect(() => {
-    if (!audioUrl) {
-      return;
-    }
     if (songs.length !== 0 && songs[0].song_path) {
-      setAudio(songs[0].song_path);
+      setAudio(songs[0].song_path, songs[0].id);
+      return;
     }
 
     return () => {
-      setAudio('');
+      reset();
     };
   }, [songs, setAudio]);
 

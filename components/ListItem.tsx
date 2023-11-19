@@ -7,6 +7,7 @@ import { FaPlay } from 'react-icons/fa';
 import PlayButton from './PlayButton';
 
 interface ListItemProps {
+  songId: string;
   title: string;
   imagePath: string;
   onClick: () => void;
@@ -15,6 +16,7 @@ interface ListItemProps {
 }
 
 const ListItem: FC<ListItemProps> = ({
+  songId,
   title,
   imagePath,
   onClick,
@@ -28,7 +30,7 @@ const ListItem: FC<ListItemProps> = ({
     event.stopPropagation();
 
     if (!audioUrl) return;
-    setAudioAndPlay(audioUrl ?? '');
+    setAudioAndPlay(audioUrl ?? '', songId);
   };
 
   return (
