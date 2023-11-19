@@ -55,7 +55,7 @@ export default function OtherUser({ params }: { params: { pid: string } }) {
         </div>
       </Header>
       <div className='p-8'>
-        <Best10Songs songs={songs} />
+        <Best10Songs songs={songs} forMe={false} />
       </div>
     </div>
   );
