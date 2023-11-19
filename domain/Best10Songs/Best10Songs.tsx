@@ -25,6 +25,7 @@ const Best10Songs: FC<Best10SongsProps> = ({ songs, forMe }) => {
           songs.map(item => (
             <ListItem
               key={item.id}
+              songId={item.id}
               onClick={forMe ? () => searchModal.onExchange(item.id) : () => {}}
               songId={item.id}
               title={item.title}

@@ -21,6 +21,12 @@ const AudioPlayer: React.FC = () => {
     setRef(audioRef);
   }, [setRef]);
 
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.5;
+    }
+  }, []);
+
   return (
     <div>
       <audio controls ref={audioRef}>
