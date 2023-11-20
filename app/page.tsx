@@ -1,4 +1,5 @@
 import Header from '@/domain/Header/Header';
+import { useUser } from '@/hooks/useUser';
 import PageContent from './_components/PageContent';
 
 export const revalidate = 0;
@@ -23,7 +24,7 @@ export default async function Home() {
             font-semibold
           '
         >
-          Welcome back!
+          マイページ
         </h1>
       </Header>
       <PageContent />

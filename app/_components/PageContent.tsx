@@ -41,11 +41,9 @@ const PageContent: FC = () => {
         <>
           <div className='flex justify-between items-center'>
             <div className='flex gap-10'>
-              <div className='text-white text-xl font-semibold'>
-                Your song list
-              </div>
+              <AudioPlayer />
               {canRegister && (
-                <>
+                <div className='items-center flex gap-5'>
                   <div>
                     <button
                       type='button'
@@ -55,24 +53,23 @@ const PageContent: FC = () => {
                         p-2
                         hover:bg-blue-600
                         transition
+                        item
                       '
                       onClick={searchModal.onOpen}
-                      disabled={mySongs.length >= 10}
+                      disabled={!canRegister}
                     >
                       <AiOutlinePlus className='text-white' />
                     </button>
                   </div>
-                  <p className='text-center p-1'>
+                  <p className='text-center pt-1'>
                     {canRegister &&
                       `あと${10 - mySongs.length}曲登録することができます`}
                   </p>
-                </>
+                </div>
               )}
             </div>
           </div>
-          <div className='mt-8'>
-            <AudioPlayer />
-          </div>
+
           <div className='mt-10'>
             <Best10Songs songs={mySongs} forMe />
           </div>

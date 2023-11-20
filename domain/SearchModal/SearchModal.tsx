@@ -124,9 +124,7 @@ const SearchModal: FC = () => {
       await addSong(data);
       setIsLoading(false);
       toast.success(
-        searchModal.isExchanging
-          ? 'Song exchanged successfully!'
-          : 'Song added successfully!',
+        searchModal.isExchanging ? '曲を入れ替えました!' : '曲を追加しました!',
       );
     } catch (e) {
       console.log(e);
@@ -140,14 +138,14 @@ const SearchModal: FC = () => {
 
   return (
     <Modal
-      title={searchModal.isExchanging ? 'Exchange song' : 'Add song'}
+      title={searchModal.isExchanging ? '曲の入れ替え' : '曲の追加'}
       description=''
       isOpen={searchModal.isOpen}
       onChange={() => {}}
       onClose={onClose}
     >
       <div>
-        <div className='pb-1'>Enter the name of your favorite song!</div>
+        <div className='pb-1'>曲名</div>
         <Input
           id='query'
           type='text'
@@ -170,7 +168,9 @@ const SearchModal: FC = () => {
             </div>
           ))
         ) : (
-          <div className='text-neutral-400 h-40'>No songs available.</div>
+          <div className='text-neutral-400 h-40'>
+            該当する曲が見つかりません。
+          </div>
         )}
       </div>
     </Modal>

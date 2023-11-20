@@ -2,12 +2,12 @@
 
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
-import { HiHome } from 'react-icons/hi';
 import { BiSearch } from 'react-icons/bi';
+import { HiHome } from 'react-icons/hi';
 
 import Box from '../../components/Box';
-import SidebarItem from './SidebarItem';
 import Library from '../Library/Library';
+import SidebarItem from './SidebarItem';
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -20,13 +20,13 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
     () => [
       {
         icon: HiHome,
-        label: 'Home',
+        label: 'ホーム',
         active: pathname !== '/search',
         href: '/',
       },
       {
         icon: BiSearch,
-        label: 'Search',
+        label: '検索',
         active: pathname === '/search',
         href: '/',
       },

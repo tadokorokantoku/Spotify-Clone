@@ -81,7 +81,7 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
                     font-medium
                   '
               >
-                Sign up
+                アカウント登録
               </Button>
               <Button
                 onClick={authModal.onSingIn}
@@ -91,7 +91,7 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
                     py-2
                   '
               >
-                Log in
+                ログイン
               </Button>
             </div>
           </>
