@@ -35,7 +35,7 @@ const HeaderIcon: FC<HeaderIconProps> = ({ user }) => {
       <Button onClick={handleLogout} variant={'link'} className='text-white'>
         ログアウト
       </Button>
-      <Button onClick={() => {}} variant={'link'}>
+      <Button onClick={() => {}} variant={'link'} className='w-1'>
         {image ? (
           <Avatar>
             <AvatarImage src={image} />
