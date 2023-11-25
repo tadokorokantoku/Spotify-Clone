@@ -1,6 +1,6 @@
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import useLoadImage from '@/hooks/useLoadImage';
 import { UserDetails } from '@/types';
-import { Avatar } from '@mantine/core';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
@@ -30,7 +30,10 @@ const UserListItem: FC<userListItemProps> = ({ user }) => {
         cursor-pointer
       '
     >
-      <Avatar radius='md' src={image} alt="it's me" />
+      <Avatar>
+        <AvatarImage src={image} />
+        <AvatarFallback />
+      </Avatar>
       <div className='text-white'>{user.full_name ?? 'No name'}</div>
     </div>
   );

@@ -9,7 +9,6 @@ import { twMerge } from 'tailwind-merge';
 import { Button } from '@/components/ui/button';
 import useAuthModal from '@/hooks/useAuthModal';
 import { useUser } from '@/hooks/useUser';
-import '@mantine/core/styles.css';
 import HeaderIcon from './HeaderIcon';
 
 interface HeaderProps {

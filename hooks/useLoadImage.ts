@@ -4,7 +4,7 @@ const useLoadImage = (image_path: string | null) => {
   const supabaseClient = useSupabaseClient();
 
   if (!image_path) {
-    return null;
+    return undefined;
   }
 
   const { data: imageData } = supabaseClient.storage

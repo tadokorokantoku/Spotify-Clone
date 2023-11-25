@@ -2,11 +2,11 @@
 import useSongs from '@/actions/useSongs';
 import { useTargetUser } from '@/actions/useTargetUser';
 import AudioPlayer from '@/components/AudioPlayer';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Best10Songs from '@/domain/Best10Songs/Best10Songs';
 import Header from '@/domain/Header/Header';
 import useLoadImage from '@/hooks/useLoadImage';
 import usePreview from '@/hooks/usePreview';
-import { Avatar } from '@mantine/core';
 import { useEffect } from 'react';
 
 export default function OtherUser({ params }: { params: { pid: string } }) {
@@ -43,7 +43,10 @@ export default function OtherUser({ params }: { params: { pid: string } }) {
     >
       <Header className='mb-2'>
         <div className='flex gap-10'>
-          <Avatar size='xl' radius='md' src={image} alt='target user' />
+          <Avatar className='w-24 h-24'>
+            <AvatarImage src={image} />
+            <AvatarFallback />
+          </Avatar>
           <h1
             className='
             flex

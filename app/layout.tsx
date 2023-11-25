@@ -3,17 +3,11 @@ import ModalProvider from '@/providers/ModalProvider';
 import SupabaseProvider from '@/providers/SupabaseProvider';
 import ToasterProvider from '@/providers/ToasterProvider';
 import UserProvider from '@/providers/UserProvider';
-import { MantineProvider, createTheme } from '@mantine/core';
 import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
 import './globals.css';
 
 const font = Figtree({ subsets: ['latin'] });
-
-const theme = createTheme({
-  white: '#000',
-  black: '#000',
-});
 
 export const metadata: Metadata = {
   title: 'Stround',
@@ -28,15 +22,13 @@ export default async function RootLayout({
   return (
     <html lang='en'>
       <body className={font.className}>
-        <MantineProvider theme={theme} defaultColorScheme='dark'>
-          <ToasterProvider />
-          <SupabaseProvider>
-            <UserProvider>
-              <ModalProvider />
-              <Sidebar>{children}</Sidebar>
-            </UserProvider>
-          </SupabaseProvider>
-        </MantineProvider>
+        <ToasterProvider />
+        <SupabaseProvider>
+          <UserProvider>
+            <ModalProvider />
+            <Sidebar>{children}</Sidebar>
+          </UserProvider>
+        </SupabaseProvider>
       </body>
     </html>
   );

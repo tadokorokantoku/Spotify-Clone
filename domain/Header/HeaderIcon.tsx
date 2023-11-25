@@ -2,10 +2,10 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import useLoadImage from '@/hooks/useLoadImage';
 import { UserDetails } from '@/types';
-import { Avatar, Divider, Menu, Text } from '@mantine/core';
 import toast from 'react-hot-toast';
 import { FaUserAlt } from 'react-icons/fa';
 
@@ -37,7 +37,10 @@ const HeaderIcon: FC<HeaderIconProps> = ({ user }) => {
       </Button>
       <Button onClick={() => {}} variant={'link'}>
         {image ? (
-          <Avatar radius='md' src={image} alt="it's me" />
+          <Avatar>
+            <AvatarImage src={image} />
+            <AvatarFallback>{user.full_name}</AvatarFallback>
+          </Avatar>
         ) : (
           <FaUserAlt />
         )}
