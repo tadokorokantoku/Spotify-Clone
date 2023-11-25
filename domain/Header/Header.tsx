@@ -2,10 +2,11 @@
 
 import { useRouter } from 'next/navigation';
 import React, { FC } from 'react';
-import { RxCaretLeft, RxCaretRight } from 'react-icons/rx';
+import { RxCaretLeft } from 'react-icons/rx';
 import { twMerge } from 'tailwind-merge';
 
-import Button from '@/components/Button';
+// import Button from '@/components/Button';
+import { Button } from '@/components/ui/button';
 import useAuthModal from '@/hooks/useAuthModal';
 import { useUser } from '@/hooks/useUser';
 import '@mantine/core/styles.css';
@@ -75,18 +76,14 @@ const Header: FC<HeaderProps> = ({ children, className }) => {
             <div>
               <Button
                 onClick={authModal.onSingUp}
-                className='
-                    bg-transparent
-                    text-neutral-300
-                    font-medium
-                  '
+                variant={'link'}
+                className='text-white'
               >
                 アカウント登録
               </Button>
               <Button
                 onClick={authModal.onSingIn}
                 className='
-                    bg-white
                     px-6
                     py-2
                   '

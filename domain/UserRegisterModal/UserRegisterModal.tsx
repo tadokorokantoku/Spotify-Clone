@@ -1,7 +1,7 @@
 'use client';
 
-import Button from '@/components/Button';
 import Input from '@/components/Input';
+import { Button } from '@/components/ui/button';
 import useUploadModal from '@/hooks/useUploadModal';
 import { useUser } from '@/hooks/useUser';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
@@ -123,7 +123,7 @@ const UserRegisterModal: FC = () => {
             {...register('image', { required: true })}
           />
         </div>
-        <Button disabled={isLoading} type='submit'>
+        <Button disabled={isLoading} type='submit' className='mt-1'>
           Create
         </Button>
       </form>

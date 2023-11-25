@@ -2,7 +2,7 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
-import Button from '@/components/Button';
+import { Button } from '@/components/ui/button';
 import useLoadImage from '@/hooks/useLoadImage';
 import { UserDetails } from '@/types';
 import { Avatar, Divider, Menu, Text } from '@mantine/core';
@@ -32,10 +32,10 @@ const HeaderIcon: FC<HeaderIconProps> = ({ user }) => {
 
   return (
     <div className='flex gap-x-4 items-center'>
-      <Button onClick={handleLogout} className='bg-white px-6 py-2'>
+      <Button onClick={handleLogout} variant={'link'} className='text-white'>
         ログアウト
       </Button>
-      <Button onClick={() => {}} className='bg-transparent'>
+      <Button onClick={() => {}} variant={'link'}>
         {image ? (
           <Avatar radius='md' src={image} alt="it's me" />
         ) : (
